@@ -1,0 +1,54 @@
+fauth -> fast basic auth bruteforce
+pipper -> web get/post bruteforcing
+exploit-db -> not finished yet, but launch all exploit-db exploits to a site.
+
+
+==PIPPER==
+
+
+
+Examples:
+
+Discover php files, hide 404 responses, 20 concurent goroutines:
+./pipper -url 'http://site.com/##.php' -go 20 -dict wordlist.txt -hc 404
+
+Fuzz post parameter, hidding the response of 100 words
+./pipper -url 'http://site.com/test.php' -post 'id=##' -dict wordlist.txt -go 20  -hw 100
+
+
+Output:
+
+code words lines bytes 		url
+(404) [30] [76] [1245]          http://test.com/0
+
+We need to hide the normal response to see the interesting responses,
+then -hc 404 or -hw 30 or -hl 76 or -hb 1245
+
+
+
+$ ./pipper  -url http://test.com/## -dict wordlists.txt  -go 10
+checking http://test.com/## ... 
+Server: BlockDOS
+Default response: 200
+Allowed Options: OPTIONS, TRACE, GET, HEAD, POST
+Scanning, press enter to interrupt.
+(404) [30] [76] [1245]		http://test.com/~ 
+(404) [30] [76] [1245]		http://test.com/0 
+(404) [30] [76] [1245]		http://test.com/_ 
+(404) [30] [76] [1245]		http://test.com/00 
+(404) [30] [76] [1245]		http://test.com/000000 
+(404) [30] [76] [1245]		http://test.com/xarancms_haupt 
+(404) [30] [76] [1245]		http://test.com/00000000 
+(404) [30] [76] [1245]		http://test.com/007 
+(404) [30] [76] [1245]		http://test.com/0007 
+(200) [298] [764] [15174]	http://test.com/ 
+(404) [30] [76] [1245]		http://test.com/007007 
+[enter]
+
+
+
+For random response bytes, we can use ranges:
+
+-hwl 10 -hwh 20  (hide responses with 10 to 20 words)
+
+
