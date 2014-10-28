@@ -102,7 +102,7 @@ func tryVal(url string, post string, oldparam string, newparam string, normal in
 func checkParam(url string, post string, param string, normal int) {
 	var name string
 	var value string
-	var dynamic bool
+	var dynamic bool = true
 	var p = strings.Split(param, "=")
 	name = p[0]
 	value = p[1]
