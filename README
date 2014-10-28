@@ -1,7 +1,7 @@
 fauth -> fast basic auth bruteforce
 pipper -> web get/post bruteforcing
 exploit-db -> not finished yet, but launch all exploit-db exploits to a site.
-
+params -> get/post parameter analysis
 
 ==PIPPER==
 

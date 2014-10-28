@@ -32,6 +32,9 @@ win64:
 
 clean:
 	rm -f pipper fauth smtpEnum params *.exe
+	
+uninstall:
+	rm -f /usr/bin/pipper /usr/bin/fauth /usr/bin/smtpEnum /usr/bin/params
 
-
-
+install:
+	cp pipper fauth smtpEnum params /usr/bin/
