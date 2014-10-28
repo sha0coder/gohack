@@ -1,3 +1,8 @@
+/*
+	Basic Auth remote bruteforcing
+	@sha0coder
+*/
+
 package main
 
 import "os"

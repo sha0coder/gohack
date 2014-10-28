@@ -1,3 +1,9 @@
+/*
+	Enumerate users via SMTP service
+	@sha0coder
+
+*/
+
 package main
 
 import (
