@@ -8,8 +8,7 @@ package main
 import "os"
 import "fmt"
 import "flag"
-import "net/http"
-import "io/ioutil"
+
 import "strings"
 
 var verbose *bool
@@ -23,40 +22,6 @@ func check(err error, msg string) {
 	if err != nil {
 		die(msg)
 	}
-}
-
-func try(url string, post string) int {
-	var client = &http.Client{}
-	var method string = "GET"
-	var err error
-	var req *http.Request
-	var resp *http.Response
-	var html string = ""
-
-	if post != "" {
-		method = "POST"
-		req, err = http.NewRequest(method, url, strings.NewReader(post))
-	} else {
-		req, err = http.NewRequest(method, url, nil)
-	}
-
-	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 5.1; rv:5.0.1) Gecko/20100101 Firefox/5.0.1")
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded; param=value")
-	req.Header.Set("Accept-Encoding", "*")
-	resp, err = client.Do(req)
-	check(err, "Can't connect")
-
-	if err == nil && resp != nil {
-		if resp.StatusCode == 200 {
-			if resp.Body != nil {
-				data, _ := ioutil.ReadAll(resp.Body)
-				html = string(data)
-				resp.Body.Close()
-			}
-		}
-	}
-
-	return len(strings.Split(html, " "))
 }
 
 func getParams(url string, post string) []string {
@@ -78,66 +43,72 @@ func getParams(url string, post string) []string {
 	return params
 }
 
-func tryVal(url string, post string, oldparam string, newparam string, normal int) bool {
-	var w int
-	url = strings.Replace(url, oldparam, newparam, -1)
-	post = strings.Replace(post, oldparam, newparam, -1)
+func checkParam(url string, post string, param string, normal int) {
+	var name string = ""
+	var value string = ""
+	var dynamic bool = true
+	var p = strings.Split(param, "=")
 
-	w = try(url, post)
-
-	if w == normal {
-		if *verbose {
-			fmt.Printf("[+] %s\n", newparam)
-		}
-		return true
+	if len(p) >= 1 {
+		name = p[0]
+	}
+	if len(p) >= 2 {
+		value = p[1]
 	}
 
 	if *verbose {
-		fmt.Printf("[-] %s\n", newparam)
+		fmt.Printf("\nChecking param %s ...\n", name)
 	}
-	return false
 
-}
-
-func checkParam(url string, post string, param string, normal int) {
-	var name string
-	var value string
-	var dynamic bool = true
-	var p = strings.Split(param, "=")
-	name = p[0]
-	value = p[1]
-
-	fmt.Printf("\nChecking param %s ...\n", name)
+	v := &VCheck{
+		url:      url,
+		post:     post,
+		oldparam: param,
+		normal:   normal,
+	}
 
 	// peticion normal
-	tryVal(url, post, param, param, normal)
+	//tryVal(url, post, param, param, normal)
 
 	// si la respuesta no varia con un parámetro vaico ni con un parametro 69 (que sirve tanto numerico como string)
-	if tryVal(url, post, param, name+"=69", normal) && tryVal(url, post, param, name+"=", normal) {
-		fmt.Printf("%s not dynamic!\n\n", name)
+	if v.c(name+"=69").normal && v.c(name+"=").normal {
+		if *verbose {
+			fmt.Printf("%s not dynamic!\n\n", name)
+		}
 		dynamic = false
 	}
 
 	// es dinamico, el contenido no es fijo
-	fmt.Printf("%s is dynamic!\n\n", name)
+	if *verbose {
+		fmt.Printf("%s is dynamic!\n\n", name)
+	}
 
 	// el transversal se chekea sobre prams dinamicos,
 	// porque el objetivo es coneguir un output fijo en
 	// parametros dinamicos
-	if dynamic && tryVal(url, post, param, name+"=./"+value, normal) {
-		fmt.Printf("%s potential traversal directory\n", name)
+	if dynamic && v.c(name+"=./"+value).normal {
+		fmt.Printf("/!\\ %s %s potential traversal directory\n", url, name)
 	}
 
 	// se busca mantener el mismo resultado en un param dinamico
 	// mediante un parametro equivalente xx  x''x o x'+'x
-	if dynamic && tryVal(url, post, param, name+"=''"+value, normal) {
-		fmt.Printf("%s potential SQL injection\n", name)
+	if dynamic && v.c(name+"=''"+value).normal {
+		fmt.Printf("/!\\ %s %s potential SQL injection\n", url, name)
 	}
 
 	// se busca provocar un cambio de contenido,
 	// en parametros estaticos
-	if !dynamic && !tryVal(url, post, param, name+"='"+value, normal) {
-		fmt.Printf("%s potential SQL injection\n", name)
+	if !dynamic && !v.c(name+"='"+value).normal {
+		fmt.Printf("/!\\ %s %s potential SQL injection\n", url, name)
+	}
+
+	// un patron univoco de SQLi es que las comillas pares den un resultado y las impares otro diferente
+	// también se prueba la concatenación
+	// ' == '''  && '' == '''' && '' == '+' && '' != '
+	if dynamic {
+		if v.c("'").words == v.c("'''").words && v.c("''").words == v.c("''''").words && v.c("''").words == v.c("'+'").words && v.c("'").words != v.c("''").words {
+			fmt.Println("/!\\ %s %s high probability of SQL injection!\n", url, name)
+		}
 	}
 
 }
@@ -167,10 +138,28 @@ func main() {
 		die("Non stable")
 	}
 
-	fmt.Printf("Words: %d\n", test[0])
+	if *verbose {
+		fmt.Printf("Words: %d\n", test[0])
+	}
 
 	for _, param := range getParams(*url, *post) {
 		checkParam(*url, *post, param, test[0])
 	}
-
 }
+
+/*
+	R+D Logica
+
+	in (url)
+
+	SQLI ->	(n("'") == n("'''") && n("''") == n("''''")  && n("'") != n("''"))
+	SQLI ->	(n("'") == n("'''") && n("''") == n("''''")  && n("'") != n("''"))
+	XSS  -> ()
+
+
+
+
+	SQLI -> ' == '''  && '' == '''' && '' == '+' && '' != '
+	XSS  ->
+
+*/
