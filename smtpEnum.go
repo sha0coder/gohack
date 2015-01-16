@@ -13,6 +13,7 @@ import (
 	"net"
 	"os"
 	"strings"
+	"time"
 )
 
 func check(err error, msg string) {
@@ -37,6 +38,7 @@ func loadWordlist(wordlist string, c chan string) {
 func main() {
 	var smtp *string = flag.String("smtp", "", "ip:port of the smtp server")
 	var wlfile *string = flag.String("wl", "", "users wordlist")
+	var host *string = flag.String("host", "", "users wordlist")
 	var verbose *bool = flag.Bool("v", false, "verbose")
 
 	flag.Parse()
@@ -52,16 +54,15 @@ func main() {
 	str, _ := read.ReadString('\n')
 	fmt.Println(str)
 	if *verbose {
-		fmt.Println("helo test")
+		fmt.Printf("helo %s\n", *host)
 	}
-	fmt.Fprintf(conn, "helo test\n")
-
+	fmt.Fprintf(conn, "helo %s\n", *host)
 	str, _ = read.ReadString('\n')
 	if *verbose {
 		fmt.Println(str)
-		fmt.Println("mail from: <a@test.com>")
+		fmt.Println("mail from: <enric@bodas.net>")
 	}
-	fmt.Fprintf(conn, "mail from: <a@test.com>\n")
+	fmt.Fprintf(conn, "mail from: <enric@bodas.net>\n")
 	read.ReadString('\n')
 
 	for w := range c {
@@ -70,7 +71,7 @@ func main() {
 			os.Exit(1)
 		}
 
-		fmt.Fprintf(conn, "rcpt to: <%s>\n", w)
+		fmt.Fprintf(conn, "rcpt to: <%s@%s>\n", w, *host)
 		str, _ := read.ReadString('\n')
 		if *verbose {
 			fmt.Println(str)
@@ -80,6 +81,8 @@ func main() {
 		} else if !*verbose {
 			fmt.Printf("\r%s          ", w)
 		}
+
+		time.Sleep(10 * time.Second)
 	}
 
 	fmt.Println("end.")

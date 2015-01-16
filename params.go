@@ -113,6 +113,13 @@ func checkParam(url string, post string, param string, normal int) {
 
 }
 
+func try(url string, post string) int {
+	R := NewRequests()
+	html, code, _ := R.GetOrPost(url, post)
+	R.QuitOnFail(code, "Can't connect")
+	return len(strings.Split(html, " "))
+}
+
 func main() {
 	var test [3]int
 	var url *string = flag.String("url", "", "the url")

@@ -9,12 +9,9 @@ import "os"
 import "fmt"
 import "flag"
 import "bufio"
-import "net/url"
 import "strings"
-import "net/http"
-import "io/ioutil"
 
-var proxyurl string = ""
+var R *Requests
 
 func check(err error, msg string) {
 	if err != nil {
@@ -24,34 +21,13 @@ func check(err error, msg string) {
 }
 
 func checkWebserver(surl string) {
-	var client = &http.Client{}
-	var server string
+	_, code, resp := R.Get(surl)
+	R.QuitOnFail(code, "Can't connect")
 
-	if proxyurl != "" {
-		proxy, err := url.Parse(proxyurl)
-		check(err, "Bad proxy url")
-		client = &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxy)}}
-	}
+	fmt.Printf("Server: %s\nDefault response: %d\n", resp.Header.Get("Server"), resp.StatusCode)
 
-	req, err := http.NewRequest("GET", surl, nil)
-	if err != nil {
-		fmt.Println("Server is not responding :/")
-		os.Exit(1)
-	}
-
-	fmt.Printf("checking %s ... \n", surl)
-	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 5.1; rv:5.0.1) Gecko/20100101 Firefox/5.0.1")
-	resp, err := client.Do(req)
-	check(err, "Can't connect")
-
-	server = resp.Header.Get("Server")
-	fmt.Printf("Server: %s\nDefault response: %d\n", server, resp.StatusCode)
-
-	req, err = http.NewRequest("OPTIONS", surl, nil)
-	resp, err = client.Do(req)
-	if err == nil {
-		fmt.Printf("Allowed Options: %s\n", resp.Header.Get("Allow"))
-	}
+	_, _, resp = R.Options(surl)
+	fmt.Printf("Allowed Options: %s\n", resp.Header.Get("Allow"))
 }
 
 func loadWordlist(wordlist string, c chan string) {
@@ -64,50 +40,7 @@ func loadWordlist(wordlist string, c chan string) {
 	}
 	c <- "[EOF1337]"
 	close(c)
-}
-
-func trypw(surl string, post string) (string, int) {
-	var resp *http.Response
-	var err error
-	var html = []byte{}
-	var code int = 0
-	var client = &http.Client{} // 1 fixed client for goroutine?
-	var req *http.Request
-	var method string = "GET"
-
-	if proxyurl != "" {
-		proxy, err := url.Parse(proxyurl)
-		check(err, "Bad proxy url")
-		client = &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxy)}}
-	}
-
-	if post != "" {
-		method = "POST"
-	}
-
-	req, err = http.NewRequest(method, surl, strings.NewReader(post)) // hace la resolucion dns aqui?
-	if err != nil {
-		fmt.Println("Server is not responding :/")
-		return "", 0
-	}
-
-	//check(err, "Can't connect")
-
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded; param=value")
-	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 5.1; rv:5.0.1) Gecko/20100101 Firefox/5.0.1")
-	req.Header.Set("Accept-Encoding", "*")
-	resp, err = client.Do(req)
-
-	if err == nil && resp != nil {
-		code = resp.StatusCode
-
-		if resp.Body != nil {
-			html, _ = ioutil.ReadAll(resp.Body)
-			resp.Body.Close()
-		}
-	}
-
-	return string(html), code
+	fmt.Println("Wordlist completed.")
 }
 
 func main() {
@@ -130,8 +63,10 @@ func main() {
 		check(nil, "bad usage --help")
 	}
 
+	R = NewRequests()
+
 	if *proxy != "" {
-		proxyurl = "http://" + *proxy
+		R.SetProxy("http://" + *proxy)
 	}
 
 	checkWebserver(*url)
@@ -156,7 +91,7 @@ func main() {
 				}
 				u = strings.Replace(url, "##", w, -1)
 				p = strings.Replace(post, "##", w, -1)
-				html, code = trypw(u, p)
+				html, code, _ = R.GetOrPost(u, p)
 				lines = len(strings.Split(html, "\n"))
 				words = len(strings.Split(html, " "))
 				bytes = len(html)

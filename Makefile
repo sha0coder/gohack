@@ -1,34 +1,40 @@
 
 
 all:
-	go build pipper.go
-	go build fauth.go
-	go build smtpEnum.go
-	go build params.go vulncheck.go
+	go get code.google.com/p/go.net/html
+	go build pipper.go requests.go
+	go build fauth.go requests.go
+	go build smtpEnum.go requests.go
+	go build params.go vulncheck.go requests.go
+	go build crawl.go requests.go
 
 linux32:
-	GOOS=linux GOARCH=386 go build pipper.go
-	GOOS=linux GOARCH=386 go build fauth.go
-	GOOS=linux GOARCH=386 go build smtpEnum.go
-	GOOS=linux GOARCH=386 go build params.go vulncheck.go
+	GOOS=linux GOARCH=386 go build pipper.go requests.go
+	GOOS=linux GOARCH=386 go build fauth.go requests.go
+	GOOS=linux GOARCH=386 go build smtpEnum.go requests.go
+	GOOS=linux GOARCH=386 go build params.go vulncheck.go requests.go
+	GOOS=linux GOARCH=386 go build crawl.go requests.go
 
 linux64:
-	GOOS=linux GOARCH=amd64 go build pipper.go
-	GOOS=linux GOARCH=amd64 go build fauth.go
-	GOOS=linux GOARCH=amd64 go build smtpEnum.go
-	GOOS=linux GOARCH=amd64 go build params.go vulncheck.go
+	GOOS=linux GOARCH=amd64 go build pipper.go requests.go
+	GOOS=linux GOARCH=amd64 go build fauth.go requests.go
+	GOOS=linux GOARCH=amd64 go build smtpEnum.go requests.go
+	GOOS=linux GOARCH=amd64 go build params.go vulncheck.go requests.go
+	GOOS=linux GOARCH=amd64 go build crawl.go requests.go
 
 win32:
-	GOOS=windows GOARCH=386 go build pipper.go
-	GOOS=windows GOARCH=386 go build fauth.go
-	GOOS=windows GOARCH=386 go build smtpEnum.go
-	GOOS=windows GOARCH=386 go build params.go vulncheck.go
+	GOOS=windows GOARCH=386 go build pipper.go requests.go
+	GOOS=windows GOARCH=386 go build fauth.go requests.go
+	GOOS=windows GOARCH=386 go build smtpEnum.go requests.go
+	GOOS=windows GOARCH=386 go build crawl.go requests.go
+	GOOS=windows GOARCH=386 go build params.go vulncheck.go requests.go
 
 win64:
-	GOOS=windows GOARCH=amd64 go build pipper.go
-	GOOS=windows GOARCH=amd64 go build fauth.go
-	GOOS=windows GOARCH=amd64 go build smtpEnum.go
-	GOOS=windows GOARCH=amd64 go build params.go vulncheck.go
+	GOOS=windows GOARCH=amd64 go build pipper.go requests.go
+	GOOS=windows GOARCH=amd64 go build fauth.go requests.go
+	GOOS=windows GOARCH=amd64 go build smtpEnum.go requests.go
+	GOOS=windows GOARCH=amd64 go build params.go vulncheck.go requests.go
+	GOOS=windows GOARCH=amd64 go build crawl.go requests.go
  
 clean:
 	rm -f pipper fauth smtpEnum params *.exe
