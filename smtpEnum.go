@@ -60,10 +60,11 @@ func main() {
 	str, _ = read.ReadString('\n')
 	if *verbose {
 		fmt.Println(str)
-		fmt.Println("mail from: <enric@bodas.net>")
+		fmt.Println("mail from: <test@aptilo.com>")
 	}
-	fmt.Fprintf(conn, "mail from: <enric@bodas.net>\n")
-	read.ReadString('\n')
+
+	//fmt.Fprintf(conn, "mail from: <test@aptilo.com>\n")
+	//read.ReadString('\n')
 
 	for w := range c {
 		if w == "[EOF1337]" {
@@ -71,12 +72,12 @@ func main() {
 			os.Exit(1)
 		}
 
-		fmt.Fprintf(conn, "rcpt to: <%s@%s>\n", w, *host)
+		fmt.Fprintf(conn, "VRFY %s\n", w)
 		str, _ := read.ReadString('\n')
 		if *verbose {
 			fmt.Println(str)
 		}
-		if strings.Contains(str, "Sender ok") || strings.Contains(str, "Recipient ok") || strings.Contains(str, "OK") {
+		if strings.Contains(str, "Sender ok") || strings.Contains(str, "Recipient ok") || strings.Contains(str, "Ok") {
 			fmt.Printf("=> %s\n", w)
 		} else if !*verbose {
 			fmt.Printf("\r%s          ", w)

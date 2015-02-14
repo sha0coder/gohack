@@ -62,7 +62,7 @@ func (c *Crawl) Queue(url string) {
 
 	if !c.IsCrawled(url) {
 		//fmt.Println("queued: " + url)
-		c.Pending <- url
+		c.Pending <- url // crash 
 	}
 }
 
@@ -71,6 +71,10 @@ func (c *Crawl) Stop() {
 }
 
 func (c *Crawl) Process(url string) {
+	if c.IsCrawled(url) {
+		return
+	}
+
 	fmt.Println("scanning " + url)
 
 	resp := c.R.LaunchNoRead("GET", url, "")
@@ -98,11 +102,9 @@ func (c *Crawl) Process(url string) {
 func (c *Crawl) Worker() {
 	for {
 		for url := range c.Pending {
-
 			if c.DoStop {
 				return
 			}
-
 			c.Process(url)
 		}
 	}
@@ -136,3 +138,4 @@ func main() {
 		fmt.Println(u)
 	}
 }
+
