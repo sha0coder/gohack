@@ -60,10 +60,10 @@ func main() {
 	str, _ = read.ReadString('\n')
 	if *verbose {
 		fmt.Println(str)
-		fmt.Println("mail from: <test@aptilo.com>")
+		fmt.Println("mail from: <test@clouuds.com>")
 	}
 
-	//fmt.Fprintf(conn, "mail from: <test@aptilo.com>\n")
+	//fmt.Fprintf(conn, "mail from: <test@clouuds.com>\n")
 	//read.ReadString('\n')
 
 	for w := range c {

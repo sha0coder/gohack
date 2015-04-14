@@ -11,6 +11,15 @@
 
 (function(args) {
 
+	var print = {
+		start: function(msg) {
+			process.stdout.write()
+		},
+		end: function(isOk) {
+
+		}
+	};
+
 	var netio = {
 		port: 80,
 		host: '',

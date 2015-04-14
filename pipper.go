@@ -10,6 +10,7 @@ import "fmt"
 import "flag"
 import "bufio"
 import "strings"
+import "strconv"
 
 var R *Requests
 
@@ -47,6 +48,7 @@ func main() {
 	var url *string = flag.String("url", "", "the url")
 	var post *string = flag.String("post", "", "post variables with ## where to bruteforce")
 	var wordlist *string = flag.String("dict", "", "the wordlist")
+	var num *int = flag.Int("num", 0, "numeric sequence")
 	var goroutines *int = flag.Int("go", 1, "num of concurrent goroutines")
 	var hl *int = flag.Int("hl", 0, "hide lines")
 	var hw *int = flag.Int("hw", 0, "hide words")
@@ -59,7 +61,8 @@ func main() {
 	var i int
 	flag.Parse()
 
-	if *url == "" || *wordlist == "" {
+	if *url == "" || (*wordlist == "" && *num == 0) {
+		fmt.Println("num:%d\n", *num)
 		check(nil, "bad usage --help")
 	}
 
@@ -72,7 +75,20 @@ func main() {
 	checkWebserver(*url)
 
 	c := make(chan string, 6)
-	go loadWordlist(*wordlist, c)
+
+	if *wordlist != "" {
+		go loadWordlist(*wordlist, c)
+	}
+
+	if *num > 0 {
+		go func() {
+			for n := 0; n < *num; n++ {
+				c <- strconv.Itoa(n)
+			}
+			c <- "[EOF1337]"
+			close(c)
+		}()
+	}
 
 	for i = 0; i < *goroutines; i++ {
 		go func(url string, post string, r int, c <-chan string) {
@@ -110,5 +126,4 @@ func main() {
 	fmt.Printf("Scanning, press enter to interrupt.\n")
 	fmt.Scanf("%d", &i)
 	fmt.Printf("interrupted.")
-
 }
