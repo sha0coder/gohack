@@ -1,7 +1,7 @@
 
 
 all:
-	go get code.google.com/p/go.net/html
+	#go get code.google.com/p/go.net/html
 	go build pipper.go requests.go
 	go build fauth.go requests.go
 	go build smtpEnum.go requests.go
