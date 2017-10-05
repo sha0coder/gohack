@@ -1,7 +1,13 @@
 fauth -> fast basic auth bruteforce
 pipper -> web get/post bruteforcing
+smtpEnum -> enumerate smtp accoutns
+massftpanon -> scan a net for ftp with anonymous access
+smbrute -> bruteforce SMB accounts
+
+soon:
 exploit-db -> not finished yet, but launch all exploit-db exploits to a site.
 params -> get/post parameter analysis
+
 
 ==PIPPER==
 
