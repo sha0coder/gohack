@@ -37,7 +37,7 @@ func checkPort(ip string, port string) (bool, string) {
 	}
 	defer conn.Close()
 
-	fmt.Fprintf(conn, "HEAD\n\n")
+	fmt.Fprintf(conn, "TEST\n\n")
 	buff := make([]byte, 1024)
 	banner := string(buff)
 	conn.Read(buff)
