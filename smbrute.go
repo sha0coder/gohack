@@ -104,22 +104,22 @@ func main() {
 	var cont *string = flag.String("c", "", "continue from specific word")
 	flag.Parse()
 
-	if *host == "" || (*passw == "" && *passw_list == "") {
+	if *host == "" || (*passw == "" && *passwList == "") {
 		end("try --help")
 	}
 
-	loginList := make(chan string, 6)
-	passwList := make(chan string, 6)
+	loginChan := make(chan string, 6)
+	passwChan := make(chan string, 6)
 
-	if *login_list != "" {
-		go loadWordlist(*loginList, login_chan, "")
+	if *loginList != "" {
+		go loadWordlist(*loginList, loginChan, "")
 	} else {
-		loginList <- *login
+		loginChan <- *login
 	}
 	if *passwList != "" {
-		go loadWordlist(*passwList, passw_chan, *cont)
+		go loadWordlist(*passwList, passwChan, *cont)
 	} else {
-		passw_chan <- *passw
+		passwChan <- *passw
 	}
 
 	for i := 0; i < *goroutines; i++ {
@@ -133,7 +133,7 @@ func main() {
 
 			end("bruteforce finished")
 
-		}(*host, *port, *domain, *debug, login_chan, passw_chan)
+		}(*host, *port, *domain, *debug, loginChan, passwChan)
 	}
 
 	wait()

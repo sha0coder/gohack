@@ -9,7 +9,7 @@ all:
 	go build smtpEnum.go requests.go
 	go build params.go vulncheck.go requests.go
 	#go build crawl.go requests.go
-	go build massftpanon.go 
+	#go build massftpanon.go 
 	go build smbrute.go
 	go build tcpscan.go octet.go
 	go build sshbrute.go octet.go
@@ -20,7 +20,7 @@ linux32:
 	GOOS=linux GOARCH=386 go build smtpEnum.go requests.go
 	GOOS=linux GOARCH=386 go build params.go vulncheck.go requests.go
 	#GOOS=linux GOARCH=386 go build crawl.go requests.go
-	GOOS=linux GOARCH=386 go build massftpanon.go 
+	#GOOS=linux GOARCH=386 go build massftpanon.go 
 	GOOS=linux GOARCH=386 go build smbrute.go
 	GOOS=linux GOARCH=386 go build tcpscan.go octet.go
 	GOOS=linux GOARCH=386 go build sshbrute.go octet.go
@@ -31,7 +31,7 @@ linux64:
 	GOOS=linux GOARCH=amd64 go build smtpEnum.go requests.go
 	GOOS=linux GOARCH=amd64 go build params.go vulncheck.go requests.go
 	#GOOS=linux GOARCH=amd64 go build crawl.go requests.go
-	GOOS=linux GOARCH=amd64 go build massftpanon.go 
+	#GOOS=linux GOARCH=amd64 go build massftpanon.go 
 	GOOS=linux GOARCH=amd64 go build smbrute.go
 	GOOS=linux GOARCH=amd64 go build tcpscan.go octet.go
 	GOOS=linux GOARCH=amd64 go build sshbrute.go octet.go
@@ -42,7 +42,7 @@ win32:
 	GOOS=windows GOARCH=386 go build smtpEnum.go requests.go
 	#GOOS=windows GOARCH=386 go build crawl.go requests.go
 	GOOS=windows GOARCH=386 go build params.go vulncheck.go requests.go
-	GOOS=windows GOARCH=386 go build massftpanon.go 
+	#GOOS=windows GOARCH=386 go build massftpanon.go 
 	GOOS=windows GOARCH=386 go build smbrute.go
 	GOOS=windows GOARCH=386 go build tcpscan.go octet.go
 	GOOS=windows GOARCH=386 go build sshbrute.go octet.go
@@ -53,7 +53,7 @@ win64:
 	GOOS=windows GOARCH=amd64 go build smtpEnum.go requests.go
 	GOOS=windows GOARCH=amd64 go build params.go vulncheck.go requests.go
 	#GOOS=windows GOARCH=amd64 go build crawl.go requests.go
-	GOOS=windows GOARCH=amd64 go build massftpanon.go 
+	#GOOS=windows GOARCH=amd64 go build massftpanon.go 
 	GOOS=windows GOARCH=amd64 go build smbrute.go
 	GOOS=windows GOARCH=amd64 go build tcpscan.go octet.go
 	GOOS=windows GOARCH=amd64 go build sshbrute.go octet.go
