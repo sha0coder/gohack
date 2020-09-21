@@ -36,7 +36,6 @@ func trySSH(user, pass, host string, port int) bool {
 
 	_, e := client.Execute("w")
 	if e != nil {
-		//fmt.Println(e.Error())
 
 		if strings.Contains(e.Error(), "unable to authenticate") {
 			if *verbose {
@@ -51,9 +50,7 @@ func trySSH(user, pass, host string, port int) bool {
 			return false
 
 		} else if strings.Contains(e.Error(), "process exited with") {
-			if *verbose {
-				fmt.Printf("[%s] [%s] [%s] Goooooood!!!! %s\n", host, user, pass, e.Error())
-			}
+			fmt.Printf("[%s] [%s] [%s] Goooooood!!!! %s\n", host, user, pass, e.Error())
 			return true
 		}
 
@@ -63,9 +60,7 @@ func trySSH(user, pass, host string, port int) bool {
 		return false
 	}
 
-	if *verbose {
-		fmt.Printf("[%s] [%s] [%s] Goooooood!!!!\n", host, user, pass)
-	}
+	fmt.Printf("[%s] [%s] [%s] Goooooood!!!!\n", host, user, pass)
 	return true
 }
 

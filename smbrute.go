@@ -46,6 +46,7 @@ func trySMB(host string, port int, domain string, login string, passw string, de
 
 	if session.IsAuthenticated {
 		log.Printf("%s:%s [+] Login successful", login, passw)
+		os.Exit(1)
 	} else {
 		log.Printf("%s:%s [-] Login failed", login, passw)
 	}
@@ -79,7 +80,7 @@ func main() {
 	var host *string = flag.String("h", "", "target host")
 	var domain *string = flag.String("d", "localhost", "domain name")
 	var login *string = flag.String("l", "administrator", "user name")
-	var login_list *string = flag.String("L", "administrator", "login wordlist file")
+	var login_list *string = flag.String("L", "", "login wordlist file")
 	var passw *string = flag.String("p", "", "password")
 	var passw_list *string = flag.String("P", "", "password wordlist file")
 	var port *int = flag.Int("port", 445, "the smb port")

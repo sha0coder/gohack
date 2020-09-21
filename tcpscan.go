@@ -99,9 +99,9 @@ func scan(host string, port string) {
 
 	if isOpen {
 		fmt.Printf("%s:%s Open [%s]\n", host, port, banner)
-	} else {
+	} /*else {
 		fmt.Printf("%s:%s Closed [%s]\n", host, port, banner)
-	}
+	}*/
 }
 
 func main() {
