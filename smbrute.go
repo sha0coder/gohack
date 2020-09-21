@@ -56,13 +56,28 @@ func trySMB(host string, port int, domain string, login string, passw string, de
 	}
 }
 
-func loadWordlist(wordlist string, c chan string) {
+func loadWordlist(wordlist string, c chan string, cont string) {
+	var w string
+	doCont := false
 	file, err := os.Open(wordlist)
 	check(err, "Can't load the wordlist")
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		c <- scanner.Text()
+		if cont != "" {
+			w = scanner.Text()
+
+			if doCont {
+				c <- w
+			} else {
+				if w == cont {
+					doCont = true
+				}
+			}
+
+		} else {
+			c <- scanner.Text()
+		}
 	}
 	//c <- "[EOF1337]"
 	close(c)
@@ -80,28 +95,29 @@ func main() {
 	var host *string = flag.String("h", "", "target host")
 	var domain *string = flag.String("d", "localhost", "domain name")
 	var login *string = flag.String("l", "administrator", "user name")
-	var login_list *string = flag.String("L", "", "login wordlist file")
+	var loginList *string = flag.String("L", "", "login wordlist file")
 	var passw *string = flag.String("p", "", "password")
-	var passw_list *string = flag.String("P", "", "password wordlist file")
+	var passwList *string = flag.String("P", "", "password wordlist file")
 	var port *int = flag.Int("port", 445, "the smb port")
 	var debug *bool = flag.Bool("v", false, "verbose")
 	var goroutines *int = flag.Int("go", 1, "num of concurrent goroutines")
+	var cont *string = flag.String("c", "", "continue from specific word")
 	flag.Parse()
 
 	if *host == "" || (*passw == "" && *passw_list == "") {
 		end("try --help")
 	}
 
-	login_chan := make(chan string, 6)
-	passw_chan := make(chan string, 6)
+	loginList := make(chan string, 6)
+	passwList := make(chan string, 6)
 
 	if *login_list != "" {
-		go loadWordlist(*login_list, login_chan)
+		go loadWordlist(*loginList, login_chan, "")
 	} else {
-		login_chan <- *login
+		loginList <- *login
 	}
-	if *passw_list != "" {
-		go loadWordlist(*passw_list, passw_chan)
+	if *passwList != "" {
+		go loadWordlist(*passwList, passw_chan, *cont)
 	} else {
 		passw_chan <- *passw
 	}
