@@ -39,10 +39,10 @@ func checkPort(ip string, port string) (bool, string) {
 
 	fmt.Fprintf(conn, "TEST\n\n")
 	buff := make([]byte, 1024)
-	banner := string(buff)
 	conn.Read(buff)
+	banner := string(buff)
 
-	if len(banner) > 5 {
+	if buff[0] != 0 {
 		return true, banner
 	}
 	return false, banner
@@ -109,7 +109,7 @@ func main() {
 	fullMode := flag.Bool("full", false, "scan all the 65535 ports")
 	lowMode := flag.Bool("low", false, "scan the 1024 lower ports")
 	host := flag.String("h", "127.0.0.1", "hosts ex: -h 192.168.1.16-192.168.1.17")
-	TIMEOUT = flag.Duration("t", 4, "timeout in seconds")
+	TIMEOUT = flag.Duration("t", 4*time.Second, "timeout in seconds")
 	flag.Parse()
 
 	if len(*host) <= 0 ||
