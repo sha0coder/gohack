@@ -8,9 +8,12 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"sync"
 )
 
 var TIMEOUT *time.Duration
+var VERBOSE *bool
+var mtx sync.Mutex
 
 func end(msg string) {
 	fmt.Println(msg)
@@ -30,9 +33,10 @@ func wait() {
 	fmt.Scanf("%d", &i)
 }
 
-func checkPort(ip string, port string) (bool, string) {
-	conn, err := net.DialTimeout("tcp", ip+":"+port, *TIMEOUT)
+func checkPort(hostport string) (bool, string) {
+	conn, err := net.DialTimeout("tcp", hostport, *TIMEOUT)
 	if err != nil {
+		//panic(err)
 		return false, ""
 	}
 	defer conn.Close()
@@ -42,7 +46,7 @@ func checkPort(ip string, port string) (bool, string) {
 	conn.Read(buff)
 	banner := string(buff)
 
-	if buff[0] != 0 {
+	if  buff[0] != 0 {
 		return true, banner
 	}
 	return false, banner
@@ -94,14 +98,19 @@ func expandHosts(host *string) *[]string {
 	return hosts
 }
 
-func scan(host string, port string) {
-	isOpen, banner := checkPort(host, port)
-
-	if isOpen {
-		fmt.Printf("%s:%s Open [%s]\n", host, port, banner)
-	} /*else {
-		fmt.Printf("%s:%s Closed [%s]\n", host, port, banner)
-	}*/
+func scan(c <-chan string) {
+	for hostport := range c {
+		if hostport == "EOF" {
+			time.Sleep(*TIMEOUT)
+			os.Exit(1)
+		}
+		isOpen, banner := checkPort(hostport)
+		if isOpen {
+			fmt.Printf("%s Open [%s]\n", hostport, banner)
+		} /*else {
+			fmt.Printf("%s Closed [%s]\n", hostport, banner)
+		}*/
+	}
 }
 
 func main() {
@@ -109,6 +118,7 @@ func main() {
 	fullMode := flag.Bool("full", false, "scan all the 65535 ports")
 	lowMode := flag.Bool("low", false, "scan the 1024 lower ports")
 	host := flag.String("h", "127.0.0.1", "hosts ex: -h 192.168.1.16-192.168.1.17")
+	gor := flag.Int("go",5,"goroutines")
 	TIMEOUT = flag.Duration("t", 4*time.Second, "timeout in seconds")
 	flag.Parse()
 
@@ -135,11 +145,24 @@ func main() {
 		}
 	}
 
-	for _, h := range *hosts {
-		for _, p := range *ports {
-			go scan(h, p)
+	c := make(chan string, 1)
+
+	// feed the channel
+	go func (hosts []string, ports []string, c chan string, gor int) {
+		for _, h := range hosts {
+			for _, p := range ports {
+				c <- fmt.Sprintf("%s:%s",h,p)
+			}
 		}
+		c <- "EOF"
+		close(c)
+	}(*hosts,*ports,c,*gor)
+
+	// launch goroutines
+	for i:=0; i<*gor; i++ {
+		go scan(c)
 	}
 
+	fmt.Println("waiting ...")
 	wait()
 }
