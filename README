@@ -3,7 +3,9 @@ pipper -> web get/post bruteforcing
 smtpEnum -> enumerate smtp accoutns
 massftpanon -> scan a net for ftp with anonymous access
 smbrute -> bruteforce SMB accounts
+sshbrute -> bruteforce SSH logins
 tcpscan -> portscan based on tcp response useful if the host is routed via tor
+
 
 soon:
 exploit-db -> not finished yet, but launch all exploit-db exploits to a site.
