@@ -92,6 +92,7 @@ func loadWordlist(wordlist, retry string) {
 func main() {
 	filename := flag.String("f", "", "IPs file")
 	pwd := flag.String("p", "root", "password")
+	user := flag.String("u", "root", "user name")
 	goroutines := flag.Int("go", 2, "gorountines")
 	retry := flag.String("r", "", "continue from ip")
 	verbose = flag.Bool("v", false, "verbose mode")
@@ -107,14 +108,14 @@ func main() {
 	go loadWordlist(*filename, *retry)
 
 	for i := 0; i < *goroutines; i++ {
-		go func(g int, pass string) {
+		go func(g int, pass, login string) {
 			for ip := range ips {
 				if ip == "[1337]" {
 					os.Exit(1)
 				}
-				trySSH("root", pass, ip, 22)
+				trySSH(login, pass, ip, 22)
 			}
-		}(i, *pwd)
+		}(i, *pwd, *user)
 	}
 
 	var i int
