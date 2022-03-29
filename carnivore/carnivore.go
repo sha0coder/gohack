@@ -35,6 +35,7 @@ func main() {
 	goroutines := flag.Int("go", 1, "number of goroutines")
 	url := flag.String("url", "", "target url")
 	dbg := flag.Bool("dbg", false, "debug mode")
+	param := flag.String("p", "", "parameter to test")
 	flag.Parse()
 
 	if *url == "" {
@@ -69,11 +70,28 @@ func main() {
 		}(i, c, indicators, *dbg)
 	}
 
-	for _, p := range params {
+	if *param == "" {
+		for _, p := range params {
+			for _, v := range payloads {
+				c <- *url + "&" + p + "=" + v
+			}
+		}
+	} else {
+		parts := strings.Split(*url, *param+"=")
+	
+		if len(parts) < 2 {
+			*url += "&"+*param+"=##"
+		} else {
+			value := strings.Split(parts[1], "&")
+			*url = strings.ReplaceAll(*url, value[0], "##")
+		}
+
 		for _, v := range payloads {
-			c <- *url + "&" + p + "=" + v
+			u := strings.ReplaceAll(*url, "##", v)
+			c <- u
 		}
 	}
+
 
 	var i int
 	fmt.Printf("Scanning, press enter to interrupt.\n")

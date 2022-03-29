@@ -47,3 +47,6 @@ download
 down
 page
 lang
+s
+q
+goto
