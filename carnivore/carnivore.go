@@ -83,7 +83,11 @@ func main() {
 			*url += "&"+*param+"=##"
 		} else {
 			value := strings.Split(parts[1], "&")
-			*url = strings.ReplaceAll(*url, value[0], "##")
+			if value[0] == "" {
+				*url += "##"
+			} else {
+				*url = strings.ReplaceAll(*url, value[0], "##")
+			}
 		}
 
 		for _, v := range payloads {
@@ -91,10 +95,10 @@ func main() {
 			c <- u
 		}
 	}
-
+	fmt.Println("pentesting ...")
 
 	var i int
-	fmt.Printf("Scanning, press enter to interrupt.\n")
-	fmt.Scanf("%d", &i)
-	fmt.Printf("interrupted.")
+	for {
+		fmt.Scanf("%d", &i)
+	}
 }

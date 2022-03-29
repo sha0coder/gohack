@@ -50,3 +50,7 @@ lang
 s
 q
 goto
+del
+delete
+rm
+remove

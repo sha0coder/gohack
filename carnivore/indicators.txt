@@ -2,6 +2,9 @@ root:x:0:0:root
 sh-5.1$
 sh: line 1:
 : command not found
+Caused by: org.
+at org.
+at javax.
 1337
 [boot loader]
 Postgre
