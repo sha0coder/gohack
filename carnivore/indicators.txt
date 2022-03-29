@@ -2,11 +2,24 @@ root:x:0:0:root
 sh-5.1$
 sh: line 1:
 : command not found
+", line
 Caused by: org.
+.php on line
+.php (Line
+.php:
+Stack trace
+Uncaught Error:
+/www/
+\www\
+C:\wamp
+(path: /
+SQLSTATE[
 at org.
 at javax.
 1337
 [boot loader]
+an internal error or missconfiguration
+SyntaxError:
 Postgre
 Oracle
 Mysql
