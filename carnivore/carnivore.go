@@ -3,7 +3,7 @@
 		- test new parameters not found in url
 		- allow tests only spcecific parameter
 		- many payloads
-		- expert system recognize errors 
+		- expert system recognize errors
 		- gauss to false positive reduction
 */
 
@@ -13,10 +13,10 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	"os"
-	"sync"
 	"math"
+	"os"
 	"strings"
+	"sync"
 )
 
 var R *Requests
@@ -42,18 +42,38 @@ func loadWordlist(wordlist string) []string {
 	return list
 }
 
-func injectPayloads(param, url string, params, payloads []string, curls chan<-string) {
-	if param == "" {
+func injectPayloads(param, url string, new bool, params, payloads []string, curls chan<- string) {
+
+	if new {
 		for _, p := range params {
 			for _, v := range payloads {
 				curls <- url + "&" + p + "=" + v
 			}
 		}
+	}
+
+	if param == "" {
+		if strings.Contains(url, "?") {
+			splUrl := strings.Split(url, "?")
+			splParams := strings.Split(splUrl[1], "&")
+			for _, p := range splParams {
+				splParams := strings.Split(p, "=")
+				if len(splParams) == 2 {
+					value := splParams[1]
+
+					for _, v := range payloads {
+						u := strings.ReplaceAll(url, value, v)
+						curls <- u
+					}
+				}
+			}
+		}
+
 	} else {
 		parts := strings.Split(url, param+"=")
-	
+
 		if len(parts) < 2 {
-			url += "&"+param+"=##"
+			url += "&" + param + "=##"
 		} else {
 			value := strings.Split(parts[1], "&")
 			if value[0] == "" {
@@ -71,7 +91,7 @@ func injectPayloads(param, url string, params, payloads []string, curls chan<-st
 	close(curls)
 }
 
-func process(g int, c <-chan string, cres chan<-map[string]int, indicators []string, dbg bool, wg *sync.WaitGroup) {
+func process(g int, c <-chan string, cres chan<- map[string]int, indicators []string, dbg bool, wg *sync.WaitGroup) {
 	for url := range c {
 		html, code, _ := R.Get(url)
 		if dbg {
@@ -89,7 +109,7 @@ func process(g int, c <-chan string, cres chan<-map[string]int, indicators []str
 	wg.Done()
 }
 
-func reduceFPs(cres <- chan map[string]int) {
+func reduceFPs(cres <-chan map[string]int) {
 	results := make(map[string]int)
 	mean := 0.0
 	elems := 0
@@ -108,14 +128,13 @@ func reduceFPs(cres <- chan map[string]int) {
 	for _, v := range results {
 		sum += math.Pow(float64(v)-mean, 2)
 	}
-	
-	err := math.Sqrt(sum/float64(elems))
 
+	err := math.Sqrt(sum / float64(elems))
 
 	fmt.Printf("gauss mean:%f err:%f\n", mean, err)
 	fmt.Println(" --- results ---")
-	for url, lines := range results {	
-		if float64(lines) < mean - err || float64(lines) > mean + err {
+	for url, lines := range results {
+		if float64(lines) < mean-err || float64(lines) > mean+err {
 			fmt.Printf("[%d] %s\n", lines, url)
 		}
 	}
@@ -127,7 +146,8 @@ func main() {
 	goroutines := flag.Int("go", 1, "number of goroutines")
 	url := flag.String("url", "", "target url")
 	dbg := flag.Bool("dbg", false, "debug mode")
-	param := flag.String("p", "", "parameter to test")
+	new := flag.Bool("new", false, "try guessing new parameters, slow.")
+	param := flag.String("p", "", "choose parameter to test otherwise test all.")
 	flag.Parse()
 
 	if *url == "" {
@@ -154,7 +174,7 @@ func main() {
 		go process(i, curls, cres, indicators, *dbg, &wg)
 	}
 
-	go injectPayloads(*param,*url, params, payloads, curls)
+	go injectPayloads(*param, *url, *new, params, payloads, curls)
 
 	fmt.Println("pentesting ...")
 
@@ -168,4 +188,3 @@ func main() {
 		fmt.Scanf("%d", &i)
 	}
 }
-
