@@ -5,6 +5,8 @@ massftpanon -> scan a net for ftp with anonymous access
 smbrute -> bruteforce SMB accounts
 sshbrute -> bruteforce SSH logins
 tcpscan -> portscan based on tcp response useful if the host is routed via tor
+massh -> from a file with ip's try to connect to each ip with one password via ssh
+carnivore -> pentest url parameters
 
 
 soon:
