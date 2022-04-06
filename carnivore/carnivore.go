@@ -44,14 +44,6 @@ func loadWordlist(wordlist string) []string {
 
 func injectPayloads(param, url string, new bool, params, payloads []string, curls chan<- string) {
 
-	if new {
-		for _, p := range params {
-			for _, v := range payloads {
-				curls <- url + "&" + p + "=" + v
-			}
-		}
-	}
-
 	if param == "" {
 		if strings.Contains(url, "?") {
 			splUrl := strings.Split(url, "?")
@@ -88,6 +80,15 @@ func injectPayloads(param, url string, new bool, params, payloads []string, curl
 			curls <- u
 		}
 	}
+
+	if new {
+		for _, p := range params {
+			for _, v := range payloads {
+				curls <- url + "&" + p + "=" + v
+			}
+		}
+	}
+
 	close(curls)
 }
 

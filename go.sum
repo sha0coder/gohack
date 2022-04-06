@@ -1,0 +1,8 @@
+github.com/dynport/gossh v0.0.0-20170809141523-122e3ee2a6b0 h1:wa39BdfWGkJWDXrvYnZyWkna0GXxUgUg21POjlJ6HAc=
+github.com/dynport/gossh v0.0.0-20170809141523-122e3ee2a6b0/go.mod h1:4qpMx8bTe9tnE+Ji+zb+gg+4e2OyOL46V7ie9eyNuGY=
+github.com/stacktitan/smb v0.0.0-20190531122847-da9a425dceb8 h1:GVFkBBJAEO3CpzIYcDDBdpUObzKwVW9okNWcLYL/nnU=
+github.com/stacktitan/smb v0.0.0-20190531122847-da9a425dceb8/go.mod h1:phLSETqH/UJsBtwDVBxSfJKwwkbJcGyy2Q/h4k+bmww=
+golang.org/x/crypto v0.0.0-20220331220935-ae2d96664a29 h1:tkVvjkPTB7pnW3jnid7kNyAMPVWllTNOf/qKDze4p9o=
+golang.org/x/crypto v0.0.0-20220331220935-ae2d96664a29/go.mod h1:IxCIyHEi3zRg3s0A5j5BB6A9Jmi73HwBIUl50j+osU4=
+golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1 h1:SrN+KX8Art/Sf4HNj6Zcz06G7VEz+7w9tdXTPOZ7+l4=
+golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
