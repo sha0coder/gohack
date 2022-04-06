@@ -17,6 +17,7 @@ import (
 	"os"
 	"strings"
 	"sync"
+	"net/url"
 )
 
 var R *Requests
@@ -42,41 +43,61 @@ func loadWordlist(wordlist string) []string {
 	return list
 }
 
+func getUrlParamNames(surl string) []string {
+	var params []string
+	oUrl, err := url.Parse(surl)
+	check(err, "invalid url")
+
+	for k, _ := range oUrl.Query() {
+		params = append(params, k)
+	}
+
+	return params
+}
+
+func changeUrlParam(surl string, param string, value string) string {
+	oUrl, err := url.Parse(surl)
+	check(err, "invalid url")
+
+	query := oUrl.Query()
+	for k, _ := range query {
+		if k == param {
+			query[k][0] = value
+			break
+		}
+	}
+
+	oUrl.RawQuery = query.Encode()
+	return oUrl.String()
+}
+
+func addUrlParam(surl string, param string, value string) string {
+	oUrl, err := url.Parse(surl)
+	check(err, "invalid url")
+
+	query := oUrl.Query()
+	query[param] = []string{value}
+	oUrl.RawQuery = query.Encode()
+	return oUrl.String()
+}
+
+
+
 func injectPayloads(param, url string, new bool, params, payloads []string, curls chan<- string) {
 
 	if param == "" {
-		if strings.Contains(url, "?") {
-			splUrl := strings.Split(url, "?")
-			splParams := strings.Split(splUrl[1], "&")
-			for _, p := range splParams {
-				splParams := strings.Split(p, "=")
-				if len(splParams) == 2 {
-					value := splParams[1]
 
-					for _, v := range payloads {
-						u := strings.ReplaceAll(url, value, v)
-						curls <- u
-					}
-				}
+		for _, p := range getUrlParamNames(url) {
+			for _, v := range payloads {
+				u := changeUrlParam(url, p, v)
+				curls <- u
 			}
 		}
 
 	} else {
-		parts := strings.Split(url, param+"=")
-
-		if len(parts) < 2 {
-			url += "&" + param + "=##"
-		} else {
-			value := strings.Split(parts[1], "&")
-			if value[0] == "" {
-				url += "##"
-			} else {
-				url = strings.ReplaceAll(url, value[0], "##")
-			}
-		}
 
 		for _, v := range payloads {
-			u := strings.ReplaceAll(url, "##", v)
+			u := changeUrlParam(url, param, v)
 			curls <- u
 		}
 	}
@@ -84,7 +105,8 @@ func injectPayloads(param, url string, new bool, params, payloads []string, curl
 	if new {
 		for _, p := range params {
 			for _, v := range payloads {
-				curls <- url + "&" + p + "=" + v
+				u := addUrlParam(url, p, v)
+				curls <- u
 			}
 		}
 	}
