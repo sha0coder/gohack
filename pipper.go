@@ -118,7 +118,6 @@ func main() {
 					fmt.Printf("(%d) [%d] [%d] [%d]\t\t%s %s\n", code, lines, words, bytes, u, p)
 					//fmt.Printf("\033[32m%d) (%d) [%d] [%d] [%d]\t\tword: %s\n\033[0m", r, code, lines, words, bytes, w)
 				}
-
 			}
 		}(*url, *post, i, c)
 	}

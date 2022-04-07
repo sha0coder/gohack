@@ -14,10 +14,10 @@ import (
 	"flag"
 	"fmt"
 	"math"
+	"net/url"
 	"os"
 	"strings"
 	"sync"
-	"net/url"
 )
 
 var R *Requests
@@ -55,7 +55,7 @@ func getUrlParamNames(surl string) []string {
 	return params
 }
 
-func changeUrlParam(surl string, param string, value string) string {
+func changeUrlParam(surl, param, value string) string {
 	oUrl, err := url.Parse(surl)
 	check(err, "invalid url")
 
@@ -71,7 +71,7 @@ func changeUrlParam(surl string, param string, value string) string {
 	return oUrl.String()
 }
 
-func addUrlParam(surl string, param string, value string) string {
+func addUrlParam(surl, param, value string) string {
 	oUrl, err := url.Parse(surl)
 	check(err, "invalid url")
 
@@ -81,32 +81,112 @@ func addUrlParam(surl string, param string, value string) string {
 	return oUrl.String()
 }
 
+func getPostParmNames(post string) []string {
+	var params []string
 
+	spl := strings.Split(post, "&")
+	for _, p := range spl {
+		pv := strings.Split(p, "=")
+		params = append(params, pv[0])
+	}
 
-func injectPayloads(param, url string, new bool, params, payloads []string, curls chan<- string) {
+	return params
+}
+
+func changePostParam(post, param, value string) string {
+	var newPost string
+
+	spl := strings.Split(post, "&")
+	for _, p := range spl {
+		pv := strings.Split(p, "=")
+
+		if pv[0] == param {
+			newPost += pv[0] + "=" + value + "&"
+		} else {
+			newPost += pv[0] + "=" + pv[1] + "&"
+		}
+	}
+
+	return newPost
+}
+
+func addPostParam(post, param, value string) string {
+	return post + "&" + param + "=" + value
+}
+
+func injectPayloads(param, url, post string, new bool, params, payloads []string, curls chan<- string) {
 
 	if param == "" {
 
+		// pentest all the url param
+		fmt.Println("pentesting url params")
 		for _, p := range getUrlParamNames(url) {
 			for _, v := range payloads {
 				u := changeUrlParam(url, p, v)
-				curls <- u
+				if post == "" {
+					curls <- u
+				} else {
+					curls <- u + "#POST#" + post
+				}
+			}
+		}
+
+		if post != "" {
+			fmt.Println("pentesting post params")
+			for _, p := range getPostParmNames(post) {
+				for _, v := range payloads {
+					pst := changePostParam(post, p, v)
+					curls <- url + "#POST#" + pst
+				}
 			}
 		}
 
 	} else {
 
-		for _, v := range payloads {
-			u := changeUrlParam(url, param, v)
-			curls <- u
+		if strings.Contains(url, param+"=") {
+			fmt.Println("pentesting selected param on url")
+			for _, v := range payloads {
+				u := changeUrlParam(url, param, v)
+				if post == "" {
+					curls <- u
+				} else {
+					curls <- u + "#POST#" + post
+				}
+			}
+
+		} else if strings.Contains(post, param+"=") {
+			fmt.Println("pentest selected param on post")
+			for _, v := range payloads {
+				newPost := changePostParam(post, param, v)
+				curls <- url + "#POST#" + newPost
+			}
+
+		} else {
+			fmt.Println("param not found.")
+			os.Exit(1)
 		}
 	}
 
 	if new {
+		fmt.Println("pentesting new possible params on url")
 		for _, p := range params {
 			for _, v := range payloads {
 				u := addUrlParam(url, p, v)
-				curls <- u
+				if post == "" {
+					curls <- u
+				} else {
+					curls <- u + "#POST#" + post
+				}
+			}
+		}
+
+		if post != "" {
+			fmt.Println("pentesting new possible params on post")
+			for _, p := range params {
+				for _, v := range payloads {
+					newPost := addPostParam(post, p, v)
+					curls <- url + "#POST#" + newPost
+				}
 			}
 		}
 	}
@@ -116,13 +196,35 @@ func injectPayloads(param, url string, new bool, params, payloads []string, curl
 
 func process(g int, c <-chan string, cres chan<- map[string]int, indicators []string, dbg bool, wg *sync.WaitGroup) {
 	for url := range c {
-		html, code, _ := R.Get(url)
-		if dbg {
-			fmt.Printf("[%d] sz:%d  %s\n", code, len(html), url)
+		var html string
+		var code int
+		var isPost bool
+		var urlPost []string
+
+		if strings.Contains(url, "#POST#") {
+			isPost = true
+			urlPost = strings.Split(url, "#POST#")
+
+			html, code, _ = R.Post(urlPost[0], urlPost[1])
+			if dbg {
+				fmt.Printf("[%d] sz:%d  %s %s\n", code, len(html), urlPost[0], urlPost[1])
+			}
+		} else {
+			isPost = false
+			html, code, _ = R.Get(url)
+			if dbg {
+				fmt.Printf("[%d] sz:%d  %s\n", code, len(html), url)
+			}
 		}
+
 		for _, i := range indicators {
 			if strings.Contains(html, i) {
-				fmt.Printf("%s  indicator: %s\n", url, i)
+				fmt.Println("Pattern Found !!!!")
+				if isPost {
+					fmt.Printf("%s\npost: %s\nindicator: %s\n", urlPost[0], urlPost[1], i)
+				} else {
+					fmt.Printf("%s\nindicator: %s\n", url, i)
+				}
 			}
 		}
 		res := make(map[string]int)
@@ -169,6 +271,7 @@ func main() {
 	goroutines := flag.Int("go", 1, "number of goroutines")
 	url := flag.String("url", "", "target url")
 	dbg := flag.Bool("dbg", false, "debug mode")
+	post := flag.String("post", "", "post data")
 	new := flag.Bool("new", false, "try guessing new parameters, slow.")
 	param := flag.String("p", "", "choose parameter to test otherwise test all.")
 	flag.Parse()
@@ -197,7 +300,7 @@ func main() {
 		go process(i, curls, cres, indicators, *dbg, &wg)
 	}
 
-	go injectPayloads(*param, *url, *new, params, payloads, curls)
+	go injectPayloads(*param, *url, *post, *new, params, payloads, curls)
 
 	fmt.Println("pentesting ...")
 
