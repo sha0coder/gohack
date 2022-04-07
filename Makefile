@@ -3,6 +3,8 @@ all:
 	#go get code.google.com/p/go.net/html
 	#go get gopkg.in/dutchcoders/goftp.v1
 	#go get github.com/stacktitan/smb/smb
+	#go get github.com/gocolly/colly/v2
+
 
 	go build pipper.go requests.go
 	go build fauth.go requests.go
@@ -21,7 +23,7 @@ linux32:
 	GOOS=linux GOARCH=386 go build fauth.go requests.go
 	GOOS=linux GOARCH=386 go build smtpEnum.go requests.go
 	GOOS=linux GOARCH=386 go build params.go vulncheck.go requests.go
-	#GOOS=linux GOARCH=386 go build crawl.go requests.go
+	GOOS=linux GOARCH=386 go build crawl.go requests.go
 	#GOOS=linux GOARCH=386 go build massftpanon.go 
 	GOOS=linux GOARCH=386 go build smbrute.go
 	GOOS=linux GOARCH=386 go build tcpscan.go octet.go
@@ -34,7 +36,7 @@ linux64:
 	GOOS=linux GOARCH=amd64 go build fauth.go requests.go
 	GOOS=linux GOARCH=amd64 go build smtpEnum.go requests.go
 	GOOS=linux GOARCH=amd64 go build params.go vulncheck.go requests.go
-	#GOOS=linux GOARCH=amd64 go build crawl.go requests.go
+	GOOS=linux GOARCH=amd64 go build crawl.go requests.go
 	#GOOS=linux GOARCH=amd64 go build massftpanon.go 
 	GOOS=linux GOARCH=amd64 go build smbrute.go
 	GOOS=linux GOARCH=amd64 go build tcpscan.go octet.go
@@ -46,7 +48,7 @@ win32:
 	GOOS=windows GOARCH=386 go build pipper.go requests.go
 	GOOS=windows GOARCH=386 go build fauth.go requests.go
 	GOOS=windows GOARCH=386 go build smtpEnum.go requests.go
-	#GOOS=windows GOARCH=386 go build crawl.go requests.go
+	GOOS=windows GOARCH=386 go build crawl.go requests.go
 	GOOS=windows GOARCH=386 go build params.go vulncheck.go requests.go
 	#GOOS=windows GOARCH=386 go build massftpanon.go 
 	GOOS=windows GOARCH=386 go build smbrute.go
@@ -60,7 +62,7 @@ win64:
 	GOOS=windows GOARCH=amd64 go build fauth.go requests.go
 	GOOS=windows GOARCH=amd64 go build smtpEnum.go requests.go
 	GOOS=windows GOARCH=amd64 go build params.go vulncheck.go requests.go
-	#GOOS=windows GOARCH=amd64 go build crawl.go requests.go
+	GOOS=windows GOARCH=amd64 go build crawl.go requests.go
 	#GOOS=windows GOARCH=amd64 go build massftpanon.go 
 	GOOS=windows GOARCH=amd64 go build smbrute.go
 	GOOS=windows GOARCH=amd64 go build tcpscan.go octet.go
@@ -69,12 +71,12 @@ win64:
 	GOOS=windows GOARCH=amd64 go build dnsbrute.go
  
 clean:
-	rm -f pipper fauth massh smtpEnum params massftpanon smbrute tcpscan sshbrute dnsbrute *.exe
+	rm -f pipper fauth massh smtpEnum params crawl massftpanon smbrute tcpscan sshbrute dnsbrute *.exe
 	
 uninstall:
-	rm -f /usr/bin/pipper /usr/bin/fauth /usr/bin/dnsbrute /usr/bin/smtpEnum /usr/bin/smbrute /usr/bin/tcpscan /usr/bin/params /usr/bin/massftpanon /usr/bin/massh
+	rm -f /usr/bin/pipper /usr/bin/crawl /usr/bin/fauth /usr/bin/dnsbrute /usr/bin/smtpEnum /usr/bin/smbrute /usr/bin/tcpscan /usr/bin/params /usr/bin/massftpanon /usr/bin/massh
 
 install:
-	cp pipper fauth smtpEnum massh dnsbrute params massftpanon smbrute tcpscan sshbrute /usr/bin/
+	cp pipper fauth smtpEnum massh crawl dnsbrute params massftpanon smbrute tcpscan sshbrute /usr/bin/
 
 
