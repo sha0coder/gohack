@@ -6,6 +6,7 @@ smbrute -> bruteforce SMB accounts
 sshbrute -> bruteforce SSH logins
 tcpscan -> portscan based on tcp response useful if the host is routed via tor
 massh -> from a file with ip's try to connect to each ip with one password via ssh
+dnsbrute -> enumerate subdomains bruteforcing a nameserver
 carnivore -> pentest url parameters
 
 
