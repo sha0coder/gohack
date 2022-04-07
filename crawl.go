@@ -24,6 +24,7 @@ func onRequest(r *colly.Request) {
 
 func main() {
 	url := flag.String("url", "", "url to crawl")
+	cache := flag.Bool("cache", false, "enable cache")
 	flag.Parse()
 
 	if *url == "" {
@@ -39,10 +40,18 @@ func main() {
 
 	dom := purl[2]
 
-	c := colly.NewCollector(
-		colly.AllowedDomains(dom),
-		colly.CacheDir("./crawler_cache"),
-	)
+	var c *colly.Collector
+
+	if *cache {
+		c = colly.NewCollector(
+			colly.AllowedDomains(dom),
+			colly.CacheDir("./crawler_cache"),
+		)
+	} else {
+		c = colly.NewCollector(
+			colly.AllowedDomains(dom),
+		)
+	}
 
 	c.OnHTML("a[href]", onHtml)
 	c.OnRequest(onRequest)
